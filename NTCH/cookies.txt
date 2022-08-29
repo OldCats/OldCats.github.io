@@ -1,0 +1,11 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+serv.npac-ntch.org	TRUE	/	FALSE	1999999999	AWSALB	tgTk4l62rW1BGLl/UO39HKwIzbW3f7I73zQB2EED8Ojq2UpcKGLmb9h3I37DtxhITrC031yMgCfAs5qIlNpG6886N+I1JRo7j0nz/H9GxyGLsrXZ2Z7PbzUnK2lA
+serv.npac-ntch.org	TRUE	/	FALSE	1999999999	AWSALBCORS	tgTk4l62rW1BGLl/UO39HKwIzbW3f7I73zQB2EED8Ojq2UpcKGLmb9h3I37DtxhITrC031yMgCfAs5qIlNpG6886N+I1JRo7j0nz/H9GxyGLsrXZ2Z7PbzUnK2lA
+serv.npac-ntch.org	TRUE	/	FALSE	1999999999	SameSite	None
+webpac.npac-ntch.org	TRUE	/	FALSE	1999999999	csrftoken	xIi4OTrDBBq2jR3rVa6d6iwssu7eJEgX4fue5w8qjv4EQY7IB5QhKppr4zeDsV9e
+webpac.npac-ntch.org	TRUE	/	FALSE	1999999999	sessionid	n3dlxc6230yqu434mkvj6gs5dsro3a1s
+webpac.npac-ntch.org	TRUE	/	FALSE	1999999999	AWSALB	dxBUCWxXuaGpcrVzRMX6c2Rawf7RvV8a79lfdFF7KBS3n48BjE7Svaixxl9smeZHq3Ri2gUaS1GP07ZnuzN4rOmZMPtZ6eOIWvLnitqqyEvg0xXC13A6D02b5+Mm
+webpac.npac-ntch.org	TRUE	/	FALSE	1999999999	AWSALBCORS	dxBUCWxXuaGpcrVzRMX6c2Rawf7RvV8a79lfdFF7KBS3n48BjE7Svaixxl9smeZHq3Ri2gUaS1GP07ZnuzN4rOmZMPtZ6eOIWvLnitqqyEvg0xXC13A6D02b5+Mm
+webpac.npac-ntch.org	TRUE	/	FALSE	1999999999	SameSite	None
+
