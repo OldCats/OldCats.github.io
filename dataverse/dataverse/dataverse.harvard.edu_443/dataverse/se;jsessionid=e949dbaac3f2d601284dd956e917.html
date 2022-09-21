@@ -1,0 +1,782 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!-- Mirrored from dataverse.harvard.edu:443/dataverse/se;jsessionid=e949dbaac3f2d601284dd956e917 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Sep 2022 05:47:17 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head id="j_idt29"><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="async" src="../../www.googletagmanager.com/gtag/js0cbe?id=UA-61753334-1"></script>
+<script>
+  //<![CDATA[
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'UA-61753334-1');
+
+  window.addEventListener("load", enableAnalyticsEventCapture, false);
+
+  function enableAnalyticsEventCapture() {
+    // Download button
+    $(document).on("click", ".btn-download, .btn-download.dropdown-toggle + ul.dropdown-menu li a", function() {
+      var category = stripSize($(this).text());
+      var label = getFileId($(this));
+      gtag('event', 'Download',{'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Request Access button
+    $(document).on("click", ".btn-request", function() {
+      var category = $(this).text();
+      var label = getFileId($(this));
+      gtag('event', 'Request Access', {'event_category' : category,
+                                     'event_label' : label});
+    });
+
+    // Explore button
+    $(document).on("click", ".btn-explore, .btn-explore.dropdown-toggle + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = getFileId($(this));
+      gtag('event', 'Explore', {'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Compute button
+    $(document).on("click", ".btn-compute, .btn-compute.dropdown-toggle + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = getFileId($(this));
+      gtag('event', 'Compute', {'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Preview button
+    $(document).on("click", ".btn-preview, .btn-preview.dropdown-toggle + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = getFileId($(this));
+      gtag('event', 'Preview', {'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Cite button
+    $(document).on("click", ".downloadCitation + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = 'Unknown';
+      if($('#fileForm').length > 0) {
+        label = stripId($('#fileForm').attr('action'));
+      } else if($('#datasetForm').length > 0) {
+        label = stripId($('#datasetForm').attr('action'));
+      }
+      gtag('event', 'Download Citation', {'event_category' : category,
+                                        'event_label' : label});
+    });
+
+    // Export Metadata button
+    $(document).on("click", ".btn-export + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = 'Unknown';
+      if($('#fileForm').length > 0) {
+        label = stripId($('#fileForm').attr('action'));
+      } else if($('#datasetForm').length > 0) {
+        label = stripId($('#datasetForm').attr('action'));
+      }
+      gtag('event', 'Export Metadata', {'event_category' : category,
+                                        'event_label' : label});
+    });
+
+    // Contact button
+    $(document).on("click", ".btn-contact", function() {
+      var category = $(this).text();
+      var label = 'Unknown';
+      if($('#fileForm').length > 0) {
+        label = stripId($('#fileForm').attr('action'));
+      } else if($('#datasetForm').length > 0) {
+        label = stripId($('#datasetForm').attr('action'));
+      } else if($('#dataverseForm').length > 0) {
+        label = stripAlias($('#dataverseForm').attr('action'));
+      }
+      gtag('event', 'Contact', {'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Share button
+    $(document).on("click", 'div[id$="shareDialog"] a[class^="sharrre"]', function() {
+      var sharrreVal = $(this).attr('class');
+      var category = sharrreVal.substring(sharrreVal.indexOf('-') + 1) ;
+      var label = 'Unknown';
+      if($('#fileForm').length > 0) {
+        label = stripId($('#fileForm').attr('action'));
+      } else if($('#datasetForm').length > 0) {
+        label = stripId($('#datasetForm').attr('action'));
+      } else if($('#dataverseForm').length > 0) {
+        label = stripAlias($('#dataverseForm').attr('action'));
+      }
+      gtag('event', 'Share', {'event_category' : category,
+                              'event_label' : label});
+    });
+
+  }
+
+  function getFileId(target) {
+    var label = 'Unknown';
+    if(target.parents('th, #actionButtonBlock .btn-access-dataset + ul.dropdown-menu').length>0) {
+      //Special case - the Download button that downloads all selected files in the dataset
+      label = 'file(s) from ' + stripId($('#datasetForm').attr('action'));
+    } else {
+      var row = target.parents('tr')[0];
+      if(row != null) {
+        //finds the file id/DOI in the Dataset page
+        label = $(row).find('td.col-file-metadata  a').attr('href');
+      } else {
+        //finds the file id/DOI in the file page
+        label = $('#fileForm').attr('action');
+      }
+      label = stripId(label);
+    }
+    return label;
+  }
+
+
+  function stripId(label) {
+    var index = label.indexOf('&');
+    if(index == -1) index = label.length;
+    if(label.indexOf('persistentId=') >= 0) {
+      label = label.substring(label.indexOf('persistentId=') + 13, index);
+    }
+    if(label.indexOf('fileId=') >= 0) {
+      label = label.substring(label.indexOf('fileId=') + 7, index);
+    }
+    return(label);
+  }
+
+  function stripAlias(label) {
+    var index = label.length;
+    label = label.substring(label.indexOf('index.html') + 11, index).split(/[?#]/)[0];
+    return(label);
+  }
+
+  function stripSize(category) {
+    var index = category.indexOf('ZIP (');
+    if(index >= 0) {
+      category = category.substring(0, index + 3);
+    }
+    return(category);
+  }
+  //]]>
+</script>
+
+            <title>Science Editing</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="description" content="Science Editing (Sci Ed) is the official journal of the Korean Council of Science Editors (https://kcse.org) and the Council of Asian Science Editors (https://asianeditor.org). It aims to improve human health and culture by promoting the quality of editing and publishing of scientific, technical, and medical journals. Its expected readers are editors, publishers, reviewers, and authors of journals around the world, although it has a particular focus on journals in Asia. Since scholarly journals in Asia are mostly published by academic societies, universities, or non-profit organizations, Sci Ed seeks to play a role in journal development. The number of publications from Asia is increasing rapidly and has surpassed that of other continents; meanwhile, the number of international journals and highly recognized journals has yet to advance commensurately. It is the task of Asian editors to dedicate themselves to journal quality and broaden their journals’ visibility and accessibility. Therefore, the scope of Sci Ed includes the following in the field of science, technology, and medicine. • Policy of journal editing • Data mining on the editing and publishing • Systematic reviews on medical journal publishing and editing • Research ethics and medical ethics, including clinical registration, statements of human and animal health protection, and conflicts of interest • Publication ethics: fabrication, falsification, plagiarism, duplicate publication, and authorship • CrossCheck • Legal issues in journal publishing • Peer review process • Reporting guidelines for medical journals • Medical and scientific literature databases • Advanced information technology applicable to journal editing and publishing, including PubMed Central schemas, journal article tag suite schemas, Digital Object Identifiers, CrossMark, FundRef, ORCID, DataCite, QR codes, and apps. • International standards of journal editing and publishing, including the International Committee of Medical Journal Editors’ recommendations • Reference styles including Vancouver (NLM) style, APA style, IEEE style, and ACS style • Digital publishing on the web and in apps • Education and training of editors, reviewers, and authors • Manuscript editing • Journal evaluation • Bibliometrics and scientometrics in the context of journal editing and publishing • Finances of journal publishing • History of scholarly journals • Copyright and Creative Commons Licenses • Open access and public access approaches Its publication types include original articles, reviews, case studies, essays, editorials, meeting reports, book reviews, announcements, correspondence, and video clips. Other types are also negotiable with the editorial board. All unsolicited articles are subject to peer review. Commissioned articles are reviewed by the Editorial Board." /><link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/theme.css.xhtml?ln=primefaces-bootstrap&amp;v=11.0.0" /><link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/primeicons/primeicons.css.xhtml?ln=primefaces&amp;v=11.0.0" /><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/omnifaces.js.xhtml?ln=omnifaces&amp;v=3.8"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/core.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/components.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/components.css.xhtml?ln=primefaces&amp;v=11.0.0" /><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/jsf.js.xhtml?ln=javax.faces"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/watermark/watermark.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/touch/touchswipe.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='en';PrimeFaces.settings.viewId='/dataverse.xhtml';PrimeFaces.settings.contextPath='';PrimeFaces.settings.cookiesSecure=false;}</script>
+        <link rel="apple-touch-icon" sizes="180x180" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/apple-touch-icon.png.xhtml" />
+        <link rel="icon" type="image/png" sizes="16x16" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/favicon-16x16.png.xhtml" />
+        <link rel="icon" type="image/png" sizes="32x32" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/favicon-32x32.png.xhtml" />
+        <link rel="manifest" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/site.webmanifest.xhtml" />
+        <link rel="mask-icon" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/safari-pinned-tab.svg.xhtml" color="#da532c" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <link type="image/png" rel="image_src" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/dataverseproject.png.xhtml" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/bs/css/bootstrap.min.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/bs/css/bootstrap-theme.min.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/ie-compat.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/owl.carousel.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/fontcustom.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/socicon.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/structure.css.xhtml?version=5.11.1" />
+            <style>
+                /* Custom CSS */
+                #navbarFixed div.navbar-header img.navbar-brand.custom-logo {height:50px !important;}
+#dataverseDesc span > span > span > h3 {font-weight: 300 !important;}
+
+nav.navbar.navbar-default {background: #ececec !important;}
+/* #footer {background: #ececec !important; padding-top:1.25em;} */
+
+            </style></head><body>
+	<a href="#content" class="sr-only">Skip to main content</a>
+
+    <nav id="dataverse-header-block"><div id="navbarFixed" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar" aria-pressed="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="../index.html"><img src="https://dataverse.harvard.edu:443/logos/navbar/logo.png" alt="Harvard Dataverse homepage" class="navbar-brand custom-logo" />
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="topNavBar">
+                    <ul class="nav navbar-nav navbar-right"><li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add Data <b class="caret"></b></a>
+                            <ul class="dropdown-menu"><li><a href="https://dataverse.harvard.edu:443/dataverse.xhtml?ownerId=1">New Dataverse</a></li><li><a href="https://dataverse.harvard.edu:443/dataset.xhtml?ownerId=1">New Dataset</a></li>
+                            </ul></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search <b class="caret"></b></a>
+                            <ul class="dropdown-menu navbar-search">
+                                <li>
+                                    <form class="form-inline" role="search">
+                                        <label id="searchNavLabel" class="sr-only" for="navbarsearch">Search</label>
+                                        <div class="input-group">
+                                            <input id="navbarsearch" type="text" class="form-control" size="28" value="" placeholder="Search all dataverses..." />
+                                            <span class="input-group-btn">
+                                                <button type="submit" title="Find" class="btn btn-default bootstrap-button-tooltip" aria-labelledby="searchNavLabel" onclick="window.location='/dataverse/harvard?q=' + document.getElementById('navbarsearch').value;return false;">
+                                                    <span class="glyphicon glyphicon-search no-text"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li><li><a href="../../support.dataverse.harvard.edu/index.html" rel="noopener" target="_blank">About</a></li>
+                        <li><a href="https://guides.dataverse.org/en/5.11.1/user" rel="noopener" target="_blank">User Guide</a>
+                        </li>
+                            <li>
+<form id="j_idt72" name="j_idt72" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" class="navbar-form navbar-left navbar-form-link" enctype="application/x-www-form-urlencoded" data-partialsubmit="true">
+<input type="hidden" name="j_idt72" value="j_idt72" />
+<a id="j_idt72:headerSupportLink" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;j_idt72:headerSupportLink&quot;,f:&quot;j_idt72&quot;,u:&quot;contactDialog&quot;,onco:function(xhr,status,args,data){PF('contactForm').show();}});return false;">Support</a><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/dataverseuser.xhtml?editMode=CREATE&amp;redirectPage=%2Fdataverse.xhtml%3Falias%3Dse">
+                                    Sign Up
+                                </a>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/loginpage.xhtml?redirectPage=%2Fdataverse.xhtml%3Falias%3Dse">
+                                    Log In
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div></div>
+        
+        <noscript>
+            <div id="noscript-alert" class="bg-danger">
+                <div class="alert container text-danger no-margin-bottom">Please enable JavaScript in your browser. It is required to use most of the features of Dataverse.
+                </div>
+            </div>
+        </noscript>
+<form id="j_idt126" name="j_idt126" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" class="form-inline" enctype="application/x-www-form-urlencoded" data-partialsubmit="true">
+<input type="hidden" name="j_idt126" value="j_idt126" />
+<input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:1" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form><div style="background:#FFFFFF;" id="dataverseHeader" class="container bg-muted">
+            <div class="dataverseHeaderBlock"><div class="dataverseHeaderCell dataverseHeaderLogo">
+                    <img src="https://dataverse.harvard.edu:443/logos/3357694/캡처.JPG" alt="Science Editing logo" /></div><div class="dataverseHeaderCell dataverseHeaderName">
+                    <a href="https://dataverse.harvard.edu:443/dataverse/se" class="dataverseHeaderDataverseName" style="color:#428BCA;"><h1>Science Editing</h1></a><span style="color:#888888;"> (Science Editing, the official journal of the KCSE)</span></div><div class="dataverseHeaderCell dataverseHeaderLink"><a href="https://escienceediting.org/" rel="noopener" style="color:#428BCA;" target="_blank">Science Editing</a></div>
+            </div></div><div id="breadCrumbPanel"><div id="breadcrumbNavBlock" class="container">
+                <div class="breadcrumbBlock">
+                            <a id="breadcrumbLnk0" href="https://dataverse.harvard.edu:443/dataverse/harvard">Harvard Dataverse
+                            </a>
+                </div><span class="breadcrumbCarrot"> &gt; </span>
+                <div class="breadcrumbBlock">
+                </div></div></div><div id="messagePanel">
+            <div class="container messagePanel">
+            </div></div>
+    </nav>
+        <div class="container" id="content" role="main">
+<form id="dataverseForm" name="dataverseForm" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="dataverseForm" value="dataverseForm" />
+<div id="actionButtonBlock" class="col-xs-12 button-block margin-bottom">
+                            <div class="row">
+                                
+                                
+                                <div class="col-xs-12 text-right padding-none">
+                                    
+                                    <div class="btn-group" role="group"><a id="dataverseForm:j_idt351" href="#" class="ui-commandlink ui-widget text-button btn-contact bootstrap-button-tooltip" onclick="PrimeFaces.ab({s:&quot;dataverseForm:j_idt351&quot;,f:&quot;dataverseForm&quot;,u:&quot;contactDialog&quot;,onco:function(xhr,status,args,data){PF('contactForm').show();},pa:[{name:&quot;DO_VALIDATION&quot;,value:&quot;false&quot;}]});return false;" title="Email Dataverse Contact" type="button">
+                                                <span class="glyphicon glyphicon-envelope"></span> Contact
+                                        </a><a id="dataverseForm:j_idt354" href="#" class="ui-commandlink ui-widget text-button btn-share bootstrap-button-tooltip" onclick="PrimeFaces.ab({s:&quot;dataverseForm:j_idt354&quot;,f:&quot;dataverseForm&quot;,onco:function(xhr,status,args,data){PF('shareDialog').show();sharrre();;}});return false;" title="Share Dataverse" type="button">
+                                            <span class="glyphicon glyphicon-share"></span> Share
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                            </div></div><div class="row margin-bottom">
+                                <div id="dataverseDesc" class="col-xs-12">Science Editing (Sci Ed) is the official journal of the Korean Council of Science Editors (https://kcse.org) and the Council of Asian Science Editors (https://asianeditor.org). It aims to improve human health and culture by promoting the quality of editing and publishing of scientific, technical, and medical journals. Its expected readers are editors, publishers, reviewers, and authors of journals around the world, although it has a particular focus on journals in Asia. Since scholarly journals in Asia are mostly published by academic societies, universities, or non-profit organizations, Sci Ed seeks to play a role in journal development. The number of publications from Asia is increasing rapidly and has surpassed that of other continents; meanwhile, the number of international journals and highly recognized journals has yet to advance commensurately. It is the task of Asian editors to dedicate themselves to journal quality and broaden their journals’ visibility and accessibility. Therefore, the scope of Sci Ed includes the following in the field of science, technology, and medicine. • Policy of journal editing • Data mining on the editing and publishing • Systematic reviews on medical journal publishing and editing • Research ethics and medical ethics, including clinical registration, statements of human and animal health protection, and conflicts of interest • Publication ethics: fabrication, falsification, plagiarism, duplicate publication, and authorship • CrossCheck • Legal issues in journal publishing • Peer review process • Reporting guidelines for medical journals • Medical and scientific literature databases • Advanced information technology applicable to journal editing and publishing, including PubMed Central schemas, journal article tag suite schemas, Digital Object Identifiers, CrossMark, FundRef, ORCID, DataCite, QR codes, and apps. • International standards of journal editing and publishing, including the International Committee of Medical Journal Editors’ recommendations • Reference styles including Vancouver (NLM) style, APA style, IEEE style, and ACS style • Digital publishing on the web and in apps • Education and training of editors, reviewers, and authors • Manuscript editing • Journal evaluation • Bibliometrics and scientometrics in the context of journal editing and publishing • Finances of journal publishing • History of scholarly journals • Copyright and Creative Commons Licenses • Open access and public access approaches Its publication types include original articles, reviews, case studies, essays, editorials, meeting reports, book reviews, announcements, correspondence, and video clips. Other types are also negotiable with the editorial board. All unsolicited articles are subject to peer review. Commissioned articles are reviewed by the Editorial Board.
+                                </div></div><div id="dataverseForm:browseOptsForm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dataverseForm:browseOptsForm_title" class="ui-dialog-title">Featured Dataverses</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="dataverseForm:browseOptsForm_content">
+                            <p class="text-danger">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span> In order to use this feature you must have at least one published dataverse.
+                            </p>
+                            <div class="button-block">
+                                <button class="btn btn-default" onclick="PF('browseOptsForm').hide();" type="button">                              
+                                    Close
+                                </button>
+                            </div></div></div><script id="dataverseForm:browseOptsForm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","browseOptsForm",{id:"dataverseForm:browseOptsForm",modal:true});});</script><div id="dataverseForm:publishDvConfirm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dataverseForm:publishDvConfirm_title" class="ui-dialog-title">Publish Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="dataverseForm:publishDvConfirm_content">
+                        <p class="text-warning">
+                            <span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to publish your dataverse? Once you do so it must remain published.
+                        </p>
+                        <div class="button-block"><button id="dataverseForm:j_idt431" name="dataverseForm:j_idt431" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default" onclick="PrimeFaces.bcn(this,event,[function(event){PF('confirmation').hide()},function(event){PrimeFaces.ab({s:&quot;dataverseForm:j_idt431&quot;,f:&quot;dataverseForm&quot;});return false;}]);" type="submit"><span class="ui-button-text ui-c">Continue</span></button><script id="dataverseForm:j_idt431_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_dataverseForm_j_idt431",{id:"dataverseForm:j_idt431"});});</script>
+                            <button class="btn btn-link" onclick="PF('confirmation').hide();" type="button">                              
+                                Cancel
+                            </button>
+                        </div></div></div><script id="dataverseForm:publishDvConfirm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","confirmation",{id:"dataverseForm:publishDvConfirm",modal:true});});</script><div id="dataverseForm:mayNotRelease" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dataverseForm:mayNotRelease_title" class="ui-dialog-title">Publish Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="dataverseForm:mayNotRelease_content">
+                        <p class="text-danger">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span> This dataverse cannot be published because the dataverse it is in has not been published.
+                        </p>
+                        <div class="button-block">
+                            <button class="btn btn-default" onclick="PF('mayNotRelease').hide();" type="button">                              
+                                Close
+                            </button>
+                        </div></div></div><script id="dataverseForm:mayNotRelease_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","mayNotRelease",{id:"dataverseForm:mayNotRelease",modal:true});});</script><div id="dataverseForm:deleteDvConfirm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dataverseForm:deleteDvConfirm_title" class="ui-dialog-title">Delete Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="dataverseForm:deleteDvConfirm_content">
+                        <p class="text-warning">
+                            <span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete your dataverse? You cannot undelete this dataverse.
+                        </p>
+                        <div class="button-block"><button id="dataverseForm:j_idt435" name="dataverseForm:j_idt435" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default" onclick="PrimeFaces.bcn(this,event,[function(event){PF('deleteConfirmation').hide()},function(event){PrimeFaces.ab({s:&quot;dataverseForm:j_idt435&quot;,f:&quot;dataverseForm&quot;});return false;}]);" type="submit"><span class="ui-button-text ui-c">Continue</span></button><script id="dataverseForm:j_idt435_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_dataverseForm_j_idt435",{id:"dataverseForm:j_idt435"});});</script>
+                            <button class="btn btn-link" onclick="PF('deleteConfirmation').hide();" type="button">                              
+                                Cancel
+                            </button>
+                        </div></div></div><script id="dataverseForm:deleteDvConfirm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","deleteConfirmation",{id:"dataverseForm:deleteDvConfirm",modal:true});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:2" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form><div id="searchResults"><div id="j_idt438"></div><div class="row panelSearchForm">
+        <div class="col-sm-9">
+<form id="j_idt443" name="j_idt443" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" class="form-inline" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt443" value="j_idt443" />
+
+                <div class="form-group">
+                    <div class="input-group"><input id="j_idt443:searchBasic" name="j_idt443:searchBasic" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control search-input" size="35" title="Search" onkeypress="if (event.keyCode == 13) { submitsearch(); return false; }" aria-label="Search" /><script id="j_idt443:searchBasic_s" type="text/javascript">$(function(){PrimeFaces.cw("InputText","widget_j_idt443_searchBasic",{id:"j_idt443:searchBasic"});});</script><script id="j_idt443:j_idt445_s" type="text/javascript">$(function(){PrimeFaces.cw("Watermark","widget_j_idt443_j_idt445",{id:"j_idt443:j_idt445",value:"Search this dataverse...",target:"j_idt443:searchBasic"});});</script>
+
+                        <span class="input-group-btn"><a id="j_idt443:searchbutton" href="#" class="ui-commandlink ui-widget btn btn-default bootstrap-button-tooltip" onclick="PrimeFaces.ab({s:&quot;j_idt443:searchbutton&quot;,f:&quot;j_idt443&quot;});return false;" title="Find">
+                                <span class="glyphicon glyphicon-search no-text"></span></a>
+                        </span><script id="j_idt443:j_idt449" type="text/javascript">submitsearch = function() {return PrimeFaces.ab({s:"j_idt443:j_idt449",f:"j_idt443",pa:arguments[0]});}</script>
+                    </div><a id="j_idt443:advsearchlink" name="j_idt443:advsearchlink" href="https://dataverse.harvard.edu:443/dataverse/se/search">Advanced Search</a>
+                </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:3" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form>
+        </div><div class="col-sm-3 text-right col-manage-action">
+            <div class="button-block">
+            </div></div></div><div id="search-row-panel" class="row row-offcanvas row-offcanvas-left">
+        <div id="dv-sidebar" class="col-sm-4 col-md-3 sidebar-offcanvas">
+<form id="facetType" name="facetType" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="facetType" value="facetType" />
+
+                
+                <div class="clearfix"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=datasets&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeChBox facetLink facetSelected"><div id="facetType:j_idt482" class="ui-selectbooleancheckbox ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="facetType:j_idt482_input" name="facetType:j_idt482_input" type="checkbox" autocomplete="off" aria-label="Show Collections" checked="checked" aria-checked="true" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default ui-state-active"><span class="ui-chkbox-icon ui-icon ui-icon-check ui-c"></span></div></div><script id="facetType:j_idt482_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectBooleanCheckbox","widget_facetType_j_idt482",{id:"facetType:j_idt482"});});</script></a><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeLink chkbox-label-margin facetSelected">
+
+                        <span class="icon-dataverse text-icon-inline"></span><span class="facetTypeDataverse">Dataverses (0)</span></a>
+                </div>
+                
+                <div class="clearfix"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeChBox facetLink facetSelected"><div id="facetType:j_idt499" class="ui-selectbooleancheckbox ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="facetType:j_idt499_input" name="facetType:j_idt499_input" type="checkbox" autocomplete="off" aria-label="Show Data Projects" checked="checked" aria-checked="true" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default ui-state-active"><span class="ui-chkbox-icon ui-icon ui-icon-check ui-c"></span></div></div><script id="facetType:j_idt499_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectBooleanCheckbox","widget_facetType_j_idt499",{id:"facetType:j_idt499"});});</script></a><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=datasets&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeLink chkbox-label-margin facetSelected">
+
+                        <span class="icon-dataset text-icon-inline"></span><span class="facetTypeDataset">Datasets (41)</span></a>
+                </div>
+                
+                <div class="clearfix"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets%3Afiles&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeChBox facetLink "><div id="facetType:j_idt516" class="ui-selectbooleancheckbox ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="facetType:j_idt516_input" name="facetType:j_idt516_input" type="checkbox" autocomplete="off" aria-label="Show Files" aria-checked="false" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-icon ui-icon-blank ui-c"></span></div></div><script id="facetType:j_idt516_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectBooleanCheckbox","widget_facetType_j_idt516",{id:"facetType:j_idt516"});});</script></a><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=files&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeLink chkbox-label-margin ">
+
+                        <span class="icon-file text-icon-inline"></span><span class="facetTypeFile">Files (118)</span></a>
+                </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:4" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form>
+<form id="facetCategoryForm" name="facetCategoryForm" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="facetCategoryForm" value="facetCategoryForm" />
+<div id="facetCategoryForm:facetCategoryList" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList_list" class="ui-datalist-data"><li class="ui-datalist-item"><span class="facetCategoryName">Publication Year</span><div id="facetCategoryForm:facetCategoryList:0:j_idt528" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList:0:j_idt528_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList:0:j_idt528_list" class="ui-datalist-data"><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=publicationDate%3A%222022%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">2022 (9)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=publicationDate%3A%222021%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">2021 (10)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=publicationDate%3A%222020%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">2020 (12)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=publicationDate%3A%222019%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">2019 (10)</a></li></ul></div></div><script id="facetCategoryForm:facetCategoryList:0:j_idt528_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList_0_j_idt528",{id:"facetCategoryForm:facetCategoryList:0:j_idt528"});});</script></li><li class="ui-datalist-item"><span class="facetCategoryName">Subject</span><div id="facetCategoryForm:facetCategoryList:1:j_idt528" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList:1:j_idt528_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList:1:j_idt528_list" class="ui-datalist-data"><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=subject_ss%3A%22Social+Sciences%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Social Sciences (32)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=subject_ss%3A%22Medicine%2C+Health+and+Life+Sciences%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Medicine, Health and Life Sciences (6)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=subject_ss%3A%22Arts+and+Humanities%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Arts and Humanities (2)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=subject_ss%3A%22Other%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Other (1)</a></li></ul></div></div><script id="facetCategoryForm:facetCategoryList:1:j_idt528_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList_1_j_idt528",{id:"facetCategoryForm:facetCategoryList:1:j_idt528"});});</script></li><li class="ui-datalist-item"><span class="facetCategoryName">Author Name</span><div id="facetCategoryForm:facetCategoryList:2:j_idt528" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList:2:j_idt528_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList:2:j_idt528_list" class="ui-datalist-data"><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorName_ss%3A%22Huh%2C+Sun%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Huh, Sun (9)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorName_ss%3A%22Choi%2C+Hyung+Wook%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Choi, Hyung Wook (4)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorName_ss%3A%22Choi%2C+Ye+Jin%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Choi, Ye Jin (4)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorName_ss%3A%22Kim%2C+Soon%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Kim, Soon (4)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorName_ss%3A%22Ida+Widianingsih%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Ida Widianingsih (3)</a></li></ul></div></div><script id="facetCategoryForm:facetCategoryList:2:j_idt528_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList_2_j_idt528",{id:"facetCategoryForm:facetCategoryList:2:j_idt528"});});</script><table id="facetCategoryForm:facetCategoryList:2:j_idt552" class="ui-panelgrid ui-widget facetsMoreLess" role="grid"><tbody><tr class="ui-widget-content" role="row"><td role="gridcell" class="ui-panelgrid-cell"></td><td role="gridcell" class="ui-panelgrid-cell"><a id="facetCategoryForm:facetCategoryList:2:j_idt557" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;facetCategoryForm:facetCategoryList:2:j_idt557&quot;,f:&quot;facetCategoryForm&quot;,u:&quot;facetCategoryForm:facetCategoryList&quot;});return false;">More...</a></td></tr></tbody></table></li><li class="ui-datalist-item"><span class="facetCategoryName">Author Affiliation</span><div id="facetCategoryForm:facetCategoryList:3:j_idt528" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList:3:j_idt528_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList:3:j_idt528_list" class="ui-datalist-data"><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorAffiliation_ss%3A%22Department+of+Parasitology+and+Institute+of+Medical+Education%2C+College+of+Medicine%2C+Hallym+University%2C+Chuncheon%2C+Korea%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Department of Parasitology and Institute of Medical Education, College of Medicine, Hallym University, Chuncheon, Korea (9)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorAffiliation_ss%3A%22Research+Institute+for+Social+Science%2C+Ewha+Womans+University%2C+Seoul%2C+Korea%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Research Institute for Social Science, Ewha Womans University, Seoul, Korea (4)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorAffiliation_ss%3A%22Department+of+Library+and+Information+Science%2C+Ewha+Womans+University%2C+Seoul%2C+Korea%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Department of Library and Information Science, Ewha Womans University, Seoul, Korea (3)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorAffiliation_ss%3A%22Medical+Library%2C+Hanyang+University+Guri+Hospital%2C+Guri%2C+Korea%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Medical Library, Hanyang University Guri Hospital, Guri, Korea (3)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;fq2=authorAffiliation_ss%3A%22Department+of+Family+Medicine%2C+Gangdong+Sacred+Heart+Hospital%2C+College+of+Medicine%2C+Hallym+University%2C+Seoul%2C+Korea%22&amp;fq0=subtreePaths%3A%22%2F3357694%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Department of Family Medicine, Gangdong Sacred Heart Hospital, College of Medicine, Hallym University, Seoul, Korea (2)</a></li></ul></div></div><script id="facetCategoryForm:facetCategoryList:3:j_idt528_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList_3_j_idt528",{id:"facetCategoryForm:facetCategoryList:3:j_idt528"});});</script><table id="facetCategoryForm:facetCategoryList:3:j_idt552" class="ui-panelgrid ui-widget facetsMoreLess" role="grid"><tbody><tr class="ui-widget-content" role="row"><td role="gridcell" class="ui-panelgrid-cell"></td><td role="gridcell" class="ui-panelgrid-cell"><a id="facetCategoryForm:facetCategoryList:3:j_idt557" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;facetCategoryForm:facetCategoryList:3:j_idt557&quot;,f:&quot;facetCategoryForm&quot;,u:&quot;facetCategoryForm:facetCategoryList&quot;});return false;">More...</a></td></tr></tbody></table></li></ul></div></div><script id="facetCategoryForm:facetCategoryList_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList",{id:"facetCategoryForm:facetCategoryList"});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:5" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form>
+        </div>
+        <div id="dv-main" class="col-sm-8 col-md-9">
+            
+
+            
+            <p class="visible-xs-block">
+              <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><span class="glyphicon glyphicon-chevron-left"></span> Filter Results</button>
+            </p><div id="resultsCountPaginatorBlock" class="row">
+                
+                <div class="results-count col-xs-6">1 to 10 of 41 Results
+                </div>
+                
+                <div class="results-sort-pagination col-xs-6">
+                    
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-sort"></span> Sort <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right text-left">
+                            <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;page=1&amp;sort=nameSort&amp;order=asc"><span class="">Name (A-Z)</span></a>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;page=1&amp;sort=nameSort&amp;order=desc"><span class="">Name (Z-A)</span></a>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;page=1&amp;sort=dateSort&amp;order=desc"><span class="highlightBold">Newest</span></a>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;page=1&amp;sort=dateSort&amp;order=asc"><span class="">Oldest</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div></div><table id="resultsTable" class="">
+<tbody>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/HVGNGY"><span style="padding:4px 0;">Charting variety, scope, and impact of open access diamond journals in various disciplines and regions: a survey-based observational study</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/HVGNGY" aria-label="Charting variety, scope, and impact of open access diamond journals in various disciplines and regions: a survey-based observational study"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAMAAABOmSgnAAAB8lBMVEX////9/f37+/v9/fz+/v7+/v3s7O7V1tnj5Ofq6+/r7O/q6+7n6ezv8PP3+Pv4+fz7/P309fbi4+bw8fT3+fvp6ez19vnl5ejp6u37/P74+Pj19fX7+/z9/f7+/v/39/f39/j4+Pn+///5+fn19vby8vP6+vrv7/Dz8/Tw8PD19fb29vb19vfr7fDv8fTz9fjz9Pj19vr6+/329/fv7+/d3d7n5+jv8PHw8PLu7vDw8fLx8vPt7u/x8fPu7/Dv7/Hy8vT3+Pn8/P78/P3n5+rt7vDq6+3w8fPv7/Lz9Pbs7e/r6+7u7vHr7O7o6evx8vXw8PPu7/Hy8/bx8fT09PX6+/zy8/Tz8/X29vjz9PX6+vv5+vv29vfw8PHu7u/z8/Py8/Px8fLx8fHt7e3z9PTp6en8/Pzu7+/w8fHy8vLr6+v09PTu7u7///7v8PDy8/X6+vz39/nv8PL5+vz09ffs7O/t7e/4+fvx8vT29/ns7fDp6uvm5ujm5eb3+Pj09fXe3+Lu7/Pt7/Pl5+vt7vLw8fXm5+vj5ejs7fHs7vHr7PDt7/Lv8PTj5Ojk5enl5uri4+fo6e37+/35+fvp6uzz8/b19fj5+fzz9Pf19vj8/f74+Pr3+Pr5+vr5+fr9/v7t7e719ff09Pb29/j4+frq6uz56mYXAAADLUlEQVQ4y+2U7V/TVhTHz82OnQMXULRzSZrYhoamF3yo2cooBXlYgfAwqy0g1BYKq7JOxdIN2JOCjqF7UItPlIcxH/5Pb5Piq9a92Ju98JdP7skn+d5z7r3nnAD8L0W4DxAPHCCI74AcHx78qKa29lDNx3wdz9fVV4QOHznYUHeUrz3G1zk/Oe78tCIkiJJLlmVFkWU84UZPRUgVLNOolp7VKmtSvdaKvSVW0apAShMpGZ8FVfMk6NZ0Qd0fKsnttSCJYwPHVYH8TQKCR6YaeKovvLm25eQpnj99huf5M04+UBHiKD1bLcpbGZ99Hmx1fNEWYld7a7A9GO7oDAVD57q6e7qZ7Iz6e790Rvqc/QMNkYgZGRwarukfiXw1PHg+Go1eGLooWZAWi/eMdtWPjdePXYqHRid8Xik2JjV7JxOXE5NtPpd9mDqiIZJkCqam0UijMYOzaUKTRPhayVxJ2uEUg2BaQJ2CQvHqFBpNKM4RVSfcNyrR0zYkzCgwq0EJEsCXgmwaVApaCsm3Ghhz9u5o6hpSDvUsyxzzgeJ1VhiopQiXVNHQy2m5MX/TzI0PRxf6zPx33+dNc3GpZvmGOb7kWFo2f7B3F/vxJ0cw2NHcXVn2mrRsKvNvBw6pn41ZGqN+v1+kwi9iTIxN+WMizVIqNvpvJaxig/DtQy0rqy13Vlbvrvy69tv63Xv3V9fWfl//Y/3Pvx48fBS3w+mGOJ/P9+fzhY2B4cdPnhae5fuGnm8WNnsHzV6zaEHS8tbGYm5zsS+8sd26vRw+t7DdtrUYHlvYym1vLQ302I0gsIaiEx73hCzvEM+uJP+dcMm7GVluzMiaVO4WCoBTHIisimM9kNUA5xAox0ymZGyIvSLTGfDtAKYIsopHEcEvAWGQWD4dukcA0xpkVWYIJjU2BUHkgBhcydhp2TvB+lcDgbnIklJUF/MtMBdzHAhlSGFeQeOs7tWwBGEWQWFfWax9KLE3Woi3u13/3CzGQ1JxtKvo7qgvvnjpeuWYdB3uku0ajzyOjLx2RNqDuc5otKMzmrs0XygEAoXAPLsDrnKbG7qRTBuU7Otdv7z3+o96Ay1yru0nAuN+AAAAAElFTkSuQmCC" alt="Charting variety, scope, and impact of open access diamond journals in various disciplines and regions: a survey-based observational study" />
+                            </a>
+                        </div><span class="text-muted">Aug 28, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">( KCSE), Korean Councils of Science Editors, 2022, "Charting variety, scope, and impact of open access diamond journals in various disciplines and regions: a survey-based observational study", <a href="https://doi.org/10.7910/DVN/HVGNGY" target="_blank">https://doi.org/10.7910/DVN/HVGNGY</a>, Harvard Dataverse, V2, UNF:6:WLuW6I4a2uJIVVxzftREiw== [fileUNF]
+                        </div>Dataset 1. Raw response data from participants of the survey containing 94 questions on OA diamond journals’ status from June 2020 to February 2021 without identifying information and without free-text answers (CSV). This in- cludes, for some questions, data from DOAJ for journal...</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/C9VHWF"><span style="padding:4px 0;">﻿Science beyond English: to what extent do Vietnamese scholars publish in non-English languages?</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/C9VHWF" aria-label="﻿Science beyond English: to what extent do Vietnamese scholars publish in non-English languages?"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAMAAABOmSgnAAABZVBMVEX////9/f38+/v+/v3+/v7+/f3s7e7X2Nvl5uns7fDq7O/o6ezo6e3q6+7p6u3n6Ovp6u7r7O/t7vLw8fT4+fz3+Pv8/P7z8/Ts7e/3+fvy8/b4+fv29/rl5ejj5Of19vf7+/z5+frw8PHt7e7q6uvt7e3u7u76+vv4+Pjs7e3w8fHv8PDu7u/39/j29vbt7u7p6ur9/f7x8fHy8/P09PXg4ODh4eHj5OTo6On6+vr7+/vk5OXi4+Pr6+vr6+zr7Ozw8PD5+fns7Ozo6en8/Pz19fX39/f6+/vy8vLv7+/u7+/s7O309PT7/Pzy8vPq6urp6erq6+vm5ufn5+fp6eno6Ojm5ub3+Pj4+Pn9/v7+/v/x8fL19fbl5ebn5+jz8/Px8vLl5ubi4uPl5eXk5eXm5+fk5OTn6Oj4+fnz9PTv7/D09fX29vfi4uLj4+Pf3+Dj4+T8/P3x8vXx8/bv8fTx8vb19vanGgoeAAADJUlEQVQ4y+1Ue3fbNByVqAbtQtlK3AVKgba2FGUL7uqVYWlViIxsrMSrvcTJCs1jW1g2tvEqj8+PktRhbb/A/uAeH9tH5+r3uPcnAfBOAr4HV9A1uALNZwXBlWsIQYTQRdL7H6yuXS99uP7RjZsb6xul9Zsba6WPN8qWZW3OcGtOqpStzdVPrE83zbK1tWZZn81+Sjes7c+/WC+tfjkn7ezu2Q4mVWrXbt+xDfbqX7n7+3crB17l3mEFLvIh5+v73/iMPzgSGDtO41vRlDj4zgMKGpwXrvYIueNChklIpRtFocuZG7oUye8ZZ4sOEIyJ1i3K7SAI9kW7JoKQe7qegIdqGQmA41Rkj1yVdjpdJ+/1RUZmGlwSoZVrQbgK2jjQGj/mSl0VUzU9ShVQMqJRRKVkJ4zRiDJkKuJsSSIEh4Bp3MhEQ+C2SCQRQYykIfEiViR/gAgo3LBxGxNC6olxBl6syZQ4K1MZBUw6KqmEP4IZZbE+h6LC9B4/pEKkQpAgcBr1ROTtU5REoXTPWWhQSUIIeK/bGXZHnX6/51XH47E7j1NwzGTAA4jUE6IDQvZJ0z33w7yW6WTff5p36+6z0bA7nDz46XkrjgjeUyA8Dikt6vfiiLpsZzicpqk/yXQlQpfFRJAbjU13scZeZLQ0j9rZ4RwqpQrvFLM7Tq45r70QTn2cuIdJEqUvRt3wsRtxWQQ91bIqFZiZUGzMRz5WF9KZ+Nyk22WMzZMZO1qYmF1q6TVSp1prF1U1GVP3pbE2YkwnJwi85Z2SIs3yCqBp7tSytCHEIyqD+j2AjscDWtSExvHPRg7eG/U7fi8VTorVuZhXRg/WMM7NUdCvXu9e0QlyOQPk2tZBQHT4RgJuhmE2cuZV1NT2p92GOpn+8jy7P51Mj6Y06vYnqXwjjbZFUDIVbQr4s1/7R7/9HjgBMaEY4xfSqdijrllvNjWxiTl40Utmpo8BWWVLnWATa2wiEYxFlt3NfOcVI+1GjPh/3i1aNXeC3/HTia292y0XHMA/Dt5Ot3u2dXa29efWdrn819/lbesSFlcPO/wneT0YDCD4H+8K/gVrMa/HLE+NPQAAAABJRU5ErkJggg==" alt="﻿Science beyond English: to what extent do Vietnamese scholars publish in non-English languages?" />
+                            </a>
+                        </div><span class="text-muted">Aug 28, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Nguyen ﻿Van Luong; Luong ﻿Dinh-Hai; Pham ﻿Hiep-Hung, 2022, "﻿Science beyond English: to what extent do Vietnamese scholars publish in non-English languages?", <a href="https://doi.org/10.7910/DVN/C9VHWF" target="_blank">https://doi.org/10.7910/DVN/C9VHWF</a>, Harvard Dataverse, V2
+                        </div>﻿The retrieved raw data of 833 non-English documents collected from Scopus with search terms.</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/XDVZSB"><span style="padding:4px 0;">Status and factors associated with the adoption of data sharing policies in Asian journals</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/XDVZSB" aria-label="Status and factors associated with the adoption of data sharing policies in Asian journals"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Aug 28, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">KimJihyun; Bai Seo Young, 2022, "Status and factors associated with the adoption of data sharing policies in Asian journals", <a href="https://doi.org/10.7910/DVN/XDVZSB" target="_blank">https://doi.org/10.7910/DVN/XDVZSB</a>, Harvard Dataverse, V1
+                        </div>Status and factors associated with the adoption of data sharing policies in Asian journals</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="../datasetb1de.html?persistentId=doi:10.7910/DVN/S1BHP0"><span style="padding:4px 0;">Open-source code to convert Journal Article Tag Suite Extensible Markup Language (JATS XML) to various viewers and other XML types for scholarly journal publishing</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="../datasetb1de.html?persistentId=doi:10.7910/DVN/S1BHP0" aria-label="Open-source code to convert Journal Article Tag Suite Extensible Markup Language (JATS XML) to various viewers and other XML types for scholarly journal publishing"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAwCAYAAACbm8NsAAAGxUlEQVR4Xu2Ye1SMeRzG/WnPHouVdcLWUCqkC8MU5dJlayqiOyWVIkKt2ZrRRTXpHmaad5RGTRRRJIWyFuuWrF23bS1y5LZIM+USR7vy7Du/YdLNXfnDc873/N5558y8n/k9z/c770wvfEbq1f5ET6oDjJYmo/2pbpMKZriGJlkVMNqMYapjO1s2WYe9B+Tz5887PFa8T8HmLW0+9LEjR8mqgnn5pGJ99Vi4VqAC/dTqYFNP6r1gPlWuVDBVlSfaXKS9Xd0hFcxPyzmfD8zrpK3xmcDwY2Lbn/pkeiNMd+oLTFf6AtOVvsB0pS8wnUlxr/PZwJRfqO95mGa6Ss/XYePJmz0Lc/BSA7afvYvsyhuYGyvpOZh9F+XY+scdZBy7Do9wEWwXRvQMzO7qeuSdugXx4Stw5aTCyicUi7j87oU5ViNHyfl6SE/egNeqbMxayofd3CCExq6GWLq1+2B+oW0pOnOH5GPOynWwC1oJ14DliE4WoaqgBI+yC7sHZv/fchT8TufjeC3cuWtgM58Hv5AIpFFSPM7biYdZhXgg2oxeAqq8/Ws/mv6ja091HcmHT7wUTiFJsPQOxo9RqViXuw1NuTvwMGMr7qfn436KFL2ENIyiPrZ+rbmP4rN1yKm6Ds+YLDgExWDW/GDw0zKxfVsJHku3o2kdDbJ2ExqTsiHjr2+F+ZhQB+j5UXj6NjIrr8E9XACbBeHEFkFWPrHlkaQID6gtuL96IxrjJZCtzICMm94RhgC1/Yn8Tqq40KDMx9GrcOakwdo3DCGRScgpKCa2NK0vJLY8SM1Fw6os1EetgyxUiMQJ7M5h3meXTtY0kvmhGOve/A1wXBYHqzmBSBRKULr3ELHlEW3LQyGdj+QcNNC2yMIpZJo5I2acDZaMnPR6GGWVtb9uBx263Igd55T5mBMpht2iKPgGR0KSvwN3C/egKacIj8QFeLDmRT5iMlG/QoQ1kxyxwsgS/trj4Tx45NvAKOt1klbdIvnwCFsDa38eohJFKD9Y2SYfjWm5ynxE07aECZDCsgdHfzLmMYwxfZAuxvVVf3uYrqAuyZ+CX1H9om05yN6yExdqavF4YzGZHy/btmGVBPLITNRyViOOyUbwKDN4aRqCraYN1neacBgz7t1hOgNS3AYEceNx43Yd8KxFlY9GYV6bfFBmTog0tsYiHRO4DR0NGzUtTNXUgeNYFnysHd4PpnOoFjzJL0FT9g6SDzI/EnPofGQQkDTT6QgbMw1+Wkw4qevBciADFiNGwYVlhgCHmTh+veTDYBQllzfTk6AFTZuKlfmgx7qibeUJEjTQ8+NeqACJ4+1pW8yJLfZqujAdqAlbXQN4TrXBb//8jKO1xdhX88oE/pAS+69SzQ9FPhrjsiCju2q9uQtimbYI0jGFh8YY2A7QwkT14bDTZ8Lb0g5VN/fi0LUi7Lm0AUGrZ30YTOriZAIinhcHynMlct24dD6yiC2CSTMRbviybUfDSo2BKQwdYos/ewZO3CzDgasFKLssgX+sPex9WK0wij8mReJi4n77i3ZWGQsSQPnFg/LmQzw7CpRbBMTOK5A+g4tU1gxl22oakbZl9R0MGz0DuE2ygK+TIyqvlWD/lTzsupgBL64VLD2M4bfYuRXmyeNWiDcBUQE0hC8flFc0ARG7hkM0iwsO0xmztcxhP8QYkwfokLY1UdNQ2aLIx5Fr21FxRYoQyh2uS81h7cTEwmAPrBXGtf3WThdXvBZGIihttYUGoTwiQbnQu+HIg4+eJVyHmeAHdQNM7KcNw96DMbqfJt22E4gtJ+l8HK7dhvKabAQmzMSM+SaY6WkODs8PQlECdu0uaoVRdIWIKlGCiPZ1AKEWJrTJh8g9AiJnHkQ0iLfONDhpjIfVIH2w+gyD0VdDMGagFky0jWA93gK81ESSj1I6H37RbNjOZcJl3jSERQTQ0UgiIGfOnnolMy3A4SPVeEZnRy57BkG6YpfKyHOiQDof82kI7xgCQrnRGXHiQTg9DJ4jzOEwdCymqOmB+fX30OrdH4bqOjDTN0VgYAjCkuOwPCEcQfFLMJtjBQsXA3gtsEcUfxkk2QKUV5Tg/J+nUXf39pu7qTUfscp8uESSfASMtoL7cDOw1Q0xsb8W2Q3dPoPBZOhjqpE5eCkpCE2OQUgiFzY+FmCxDWFkpgfr6RaIT+ZBmifGgYN78deFc5DJ7uHpv81dwwgWJRFbRD6xbfKhsGWe7lS4MFhKW75hkHyM+pYB0xHGxBZuShI4SdEITgiD9WxzMK1GwWSaEdjO9pjr64/FS3jgRiTi0uVqOh71aG5uRktLC/4HOiKRskPCkYwAAAAASUVORK5CYII=" alt="Open-source code to convert Journal Article Tag Suite Extensible Markup Language (JATS XML) to various viewers and other XML types for scholarly journal publishing" />
+                            </a>
+                        </div><span class="text-muted">Aug 28, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Cho Younsang, 2022, "Open-source code to convert Journal Article Tag Suite Extensible Markup Language (JATS XML) to various viewers and other XML types for scholarly journal publishing", <a href="https://doi.org/10.7910/DVN/S1BHP0" target="_blank">https://doi.org/10.7910/DVN/S1BHP0</a>, Harvard Dataverse, V1
+                        </div>Examples of XML, CSS, FO, and other necessary files to convert the JATS XML to various viewers and other XML types for scholarly publishing.</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/DDYNQO"><span style="padding:4px 0;">Improving Journal Article Tag Suite for multilingual articles</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/DDYNQO" aria-label="Improving Journal Article Tag Suite for multilingual articles"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAMAAABOmSgnAAABX1BMVEX////9/f37+/v+/v79/f7u7e7W1tbp6enx8vLw8PDy8vLy8vPz8/Px8fH19fX4+Pj7/P74+fz3+Pv3+fz8/P719vfn6Ozr7PDs7vLz9Pj09fnz9fnu7/Pw8fX09vr6+v339/jv8PL3+Pr5+v3x8vXx8vT09ffc3d/j4+by8vXh4uTm5+nz9Pb8/P3v8PH5+fv8/f709Pbx8fLa2tvg4OHw8PHb293e3t/y8vTw8PL6+vv09fX4+fn8/f329vf19fb5+frt7e3p6ers7O34+Pnv8PP4+fvy8/bw8fP19vnu7/Lw8PP19vjt7vH29/n5+fn7+/z5+vrv7/D8/Pz29/ft7e709PT39/f6+vrv7+/z8/T29vbs7Ozu7u719vb9/v7v8PD7/Pzy8/Pw8fH3+Pj6+/vt7u709PXz9PTu7u/u7+/s7e3+/v/5+vz5+fz6+/z09fj29/r19/rw8fT3+PldYPPcAAADV0lEQVQ4y81Ua3PbRBTdRyHZ9UqL3bSFPkBNAxRaFyiEh+IqdqOEltfa3lhaWVHqQtwm4BYC/P/p3dXKCQPD5+54RiPN8bnnnnvuIvRaHkwwpRjjC9geSv8T9MabK6uM8ZbgImjxUL7Vrk+n3b4IjzUHunT5ypW337l67fqNq9dvvHvtvejm+q32xvsffHj7o4/v3L3ZdSB575NP1z67f+nzLza//Orrb7rxVu9BN9nurwxaD3eipC6f7u7dWv/20ePvvv/hx92f7nYVY8ORGCsZo4To7VrT/iTbyrOxkQblBIdIFVNkLMigkuCyBuUHoVGiMCl8NABKq22kgonKDTokOvSg7AkiojJSoTLGGVI8B6aZUgTlT3HuQRVBJGOxasoFITI/F7ZcMlyWCwwi08Iy1aBfmCZibIDpSDdMqUTAVJhe34JADws0MBtJ7LtnUi3sQGpUf1RFwbQMcY8gSfB+DZJFiUhr4IVDuSqkplUpOT/PNOZUZzMDwiWh0FlVhdpIrDHSlBIPKlQt3HhNk2fMlIKYp0hpLD0oyKl+zuIRqZnkARclCIfu5LI7WWI0PD4xzidaIgm+GVGoFLrTS592cqSzX5ea0rGkRBR9FaNo2DAljKIhjEWBT3PLxGalFJVjWnYnWUKpDKma10yKheW/NVUBBtAFMC+y/5TWAe+4xode028DpQWnoCkxUC7f0jgWJ76cD53iUutQYBsNQhMkoQIJA2Ncuaa7yWoG3RAQ7kKXOwtObJ5K0g2b2XGinwta58l2h9E8C6zwcz6tHGDCB3YsoYFklg9hfsEgte9EZz5POwF2+fHJzAfFYQ6L4Mo1GZcHGSVTty1JDRrzDMbyD9BRJukwY/OeB8mTXpPxM1B5XyLCJy50VlNvFpYKyuUO1AifasgT990dIgnNGl6o6DzT0SaABCPNtsgjhAyvalAzFvksw3YRpPdJQRiNYH3r0xAn3oJiNTY1yA1YHWtkWk74uajwMoyEE75fXxic2mRa0NlywlPbvTNNnkoUi5kdS3SWp6De4DNN1I7FXz1NVDbjxfx43E/jRRR3k4Vq9Rej6ayXjhbREN4dqLu+9+JlZ73dfvliD35rv/9x2u6c/tnpnG78tbGx+/f/390UcmdD/FqeV9891Y+o3RS2AAAAAElFTkSuQmCC" alt="Improving Journal Article Tag Suite for multilingual articles" />
+                            </a>
+                        </div><span class="text-muted">Aug 28, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Lizzi, Vincent, 2022, "Improving Journal Article Tag Suite for multilingual articles", <a href="https://doi.org/10.7910/DVN/DDYNQO" target="_blank">https://doi.org/10.7910/DVN/DDYNQO</a>, Harvard Dataverse, V1
+                        </div>An alphabetical list of JATS elements</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/XMCSA6"><span style="padding:4px 0;">The opinions of Indian dental faculty members on harmonizing manuscript preparation and the submission guidelines of journals</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/XMCSA6" aria-label="The opinions of Indian dental faculty members on harmonizing manuscript preparation and the submission guidelines of journals"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAMAAABOmSgnAAABDlBMVEX////9/f38+/v+/v7+/f3+/v3s7e7X2Nvn6Ovr7fDp6u3q6+7r7O/s7fDq7O/o6e3o6ezp6u7t7vH4+fz3+Pv8/P7y8vPi4uXn5+rp6ezj4+bj5Of3+fvl5unm5un4+Pjt7e7r7Ozu7u/s7e3v8PDz8/Tv7/Dt7u77+/v+/v/7/Pzy8vL6+/vu7u7t7e3r6+zr6+vv7+/w8fHq6ur29vb39/fs7Oz5+fn8/Pz6+vr8/f309fXs7O3x8fHw8PDz8/P09PTu7+/19fX39/jw8PHx8fL4+Pnz9PTp6ur5+fr09ffl5+vm6O3n6e3l5uvm5+zl5+zw8vb09vr09frx8/f6+/3x8vL09PX29vf+///oZJHhAAABVElEQVQ4y+2S2XKCMBSGSZEuoF2E2s0WpArYmGCsIrQQwdrafV/f/0UqMtMmzLTXXvjdZPvmPzmTCMJMAhaACAoFSZJESQIFCQAwmeakxaXlFVlWiqViaVVZUxR5XVY2yqqqaZo6YXMqVba2d3b3yumGWtWqKemxVtw/0H4k3aiZh0a9YdmW0/xFPIItcTJm5XQbYbdNOviYVABzDbHLXKyHsFcnfcdx/MABJ8D3M1U8ZaWw7YWe4WIEIzoYQEjjTIoZqU8wRoQgjAOua66c3kkS2yI0hA4v9dhyncR0XYPqQOClIZsUQSs0KRn6OemMTfIsZGAvbuWTdDaJRHA0ItF5zEeJfWbRa9sJSgn+SbogCFKC6DjQufa47nQamga6tOIG6v7Z3RU1R6ZZi/P/jCt3fXN7d//w+PSc4+V1Orxlz/LeGA8+PptinmznS5gzZ86s8g2bYjY+DfkCzAAAAABJRU5ErkJggg==" alt="The opinions of Indian dental faculty members on harmonizing manuscript preparation and the submission guidelines of journals" />
+                            </a>
+                        </div><span class="text-muted">Aug 25, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Gadde Praveen; Harsha GVD; Swati G Naidu, 2022, "The opinions of Indian dental faculty members on harmonizing manuscript preparation and the submission guidelines of journals", <a href="https://doi.org/10.7910/DVN/XMCSA6" target="_blank">https://doi.org/10.7910/DVN/XMCSA6</a>, Harvard Dataverse, V3
+                        </div>Raw response of 894 dental professionals from 16 dental schools to a questionnaire on harmonizing manuscript preparation and submission guidelines</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/ISWZXH"><span style="padding:4px 0;">Increased number of Scopus articles from Indonesia from 1945 to 2020, an analysis of international collaboration, and a comparison with other ASEAN countries from 2016 to 2020</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/ISWZXH" aria-label="Increased number of Scopus articles from Indonesia from 1945 to 2020, an analysis of international collaboration, and a comparison with other ASEAN countries from 2016 to 2020"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAwCAMAAABOmSgnAAAAzFBMVEX////9/f38+/v+/v3+/v7s7e7Y2Nvm5+rr7O/u7/L3+Pv4+fz8/P7z9PXl5unv7/Ly8/b19vn4+Pju7u/v7/Dt7u79/v7+/v/5+fnr6+zr7Ozy8vLw8PHu7+/q6uvo6Ons7Ozs7e36+/vp6erm5ubm5+fq6urs7O3p6enl5ebo6Ojn5+ft7e339/fr6+vq6+vv7+/9/f7o6enx8fHu7u7t7e7y8vPv8PDw8PD7+/z19ff19vf3+Pn5+vv09Pb09fb19fb29vj09PX8/P1jdojKAAAA2ElEQVQ4y+2Q2XKCQBBFJca44oKjAU0yPS4wYjtMBJdAoiH+/z9ZgBVHX3y1LM5bd53q5RYKd4n2pBWfb0mll3KlWqurqFUjlfRmq35Ju9m5lowu6ZH+a4JpDcjw7f2D9ggw0h0lvWydwWBsZUcZk6ntOHzmMmc2R9TONy0EDE61yTl4IChKRjnKT1VCkNkkky6FDTYFCa6HvvKdAUHgnyTbQ1zhGAgKgWslmIWz2fxLApEBF9vAEtJXpK8wjL4bKT87PQr3O/03jv7COD4kvZs55+Tk5DwCR4qRGrVWUzF6AAAAAElFTkSuQmCC" alt="Increased number of Scopus articles from Indonesia from 1945 to 2020, an analysis of international collaboration, and a comparison with other ASEAN countries from 2016 to 2020" />
+                            </a>
+                        </div><span class="text-muted">Feb 17, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Prakoso Bhairawa Putera; Suryanto Suryanto; Sinta Ningrum; Ida Widianingsih; Yan Rianto, 2022, "Increased number of Scopus articles from Indonesia from 1945 to 2020, an analysis of international collaboration, and a comparison with other ASEAN countries from 2016 to 2020", <a href="https://doi.org/10.7910/DVN/ISWZXH" target="_blank">https://doi.org/10.7910/DVN/ISWZXH</a>, Harvard Dataverse, V1, UNF:6:q2Sp2+XQAqwdUU2tq7bDUw== [fileUNF]
+                        </div>Search results according to search terms including country, year, and subject areas in Scopus.</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/KZ1MYX"><span style="padding:4px 0;">Comparing the accuracy and effectiveness of Wordvice AI Proofreader to two automated editing tools and human editors</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/KZ1MYX" aria-label="Comparing the accuracy and effectiveness of Wordvice AI Proofreader to two automated editing tools and human editors"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Feb 17, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Kevin Heintz; Roh, Younghoon; Lee, Jonghwan, 2022, "Comparing the accuracy and effectiveness of Wordvice AI Proofreader to two automated editing tools and human editors", <a href="https://doi.org/10.7910/DVN/KZ1MYX" target="_blank">https://doi.org/10.7910/DVN/KZ1MYX</a>, Harvard Dataverse, V1
+                        </div>Eight hundred sentence pairs out of 1,501 from JHU FLuency-Extended GUG (JFLEG) open dataset, which were used for assessing improvements in textual fluency (https://github.com/keisks/jflegc).</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/SK8K5B"><span style="padding:4px 0;">Role of academic publishers in ten 10 years: a perspective from the Chairman of Elsevier</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/SK8K5B" aria-label="Role of academic publishers in ten 10 years: a perspective from the Chairman of Elsevier"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Feb 17, 2022</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Chi, Youngsuk, 2022, "Role of academic publishers in ten 10 years: a perspective from the Chairman of Elsevier", <a href="https://doi.org/10.7910/DVN/SK8K5B" target="_blank">https://doi.org/10.7910/DVN/SK8K5B</a>, Harvard Dataverse, V1
+                        </div>Number of gold open access documents in the Scopus database according to year</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/WODLKV"><span style="padding:4px 0;">PubMed Central as a platform for the survival of open-access biomedical society journals published in Korea</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/WODLKV" aria-label="PubMed Central as a platform for the survival of open-access biomedical society journals published in Korea"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Aug 17, 2021</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Huh, Sun, 2021, "PubMed Central as a platform for the survival of open-access biomedical society journals published in Korea", <a href="https://doi.org/10.7910/DVN/WODLKV" target="_blank">https://doi.org/10.7910/DVN/WODLKV</a>, Harvard Dataverse, V1, UNF:6:/JTyd3+JbTgxuV6PL1qklw== [fileUNF]
+                        </div>PMC journal list</div></td>
+</tr>
+</tbody>
+</table>
+
+            <div class="results-sort-pagination results-bottom text-center">
+            
+                <ul class="pagination">
+                    
+                    <li class="disabled"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=1" title="First Page">«</a>
+                    </li>
+                    <li class="disabled"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=1" title="Previous Page">&lt; Previous</a>
+                    </li>
+                        <li class="active"><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=1">1
+                                <span class="sr-only">(Current)
+                                </span></a>
+                        </li>
+                        <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=2">2
+                                <span>
+                                </span></a>
+                        </li>
+                        <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=3">3
+                                <span>
+                                </span></a>
+                        </li>
+                        <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=4">4
+                                <span>
+                                </span></a>
+                        </li>
+                        <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=5">5
+                                <span>
+                                </span></a>
+                        </li>
+                    <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=2" title="Next Page">Next &gt;</a>
+                    </li>
+                    <li><a href="https://dataverse.harvard.edu:443/dataverse/se?q=&amp;sort=dateSort&amp;order=desc&amp;page=5&amp;types=dataverses%3Adatasets" title="Last Page">»</a>
+                    </li>
+                </ul>
+            </div>
+        </div></div>
+<form id="j_idt866" name="j_idt866" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt866" value="j_idt866" />
+<script id="j_idt866:j_idt867" type="text/javascript">postLoad = function() {return PrimeFaces.ab({s:"j_idt866:j_idt867",f:"j_idt866",p:"j_idt866:j_idt867",u:"resultsTable",pa:arguments[0]});}</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:6" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form><div id="addDataGuest" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="addDataGuest_title" class="ui-dialog-title">Add Data</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="addDataGuest_content">
+        <p class="help-block">Sign up or log in to create a dataverse or add a dataset.
+        </p>
+        <div class="button-block">
+                <a class="btn btn-default" href="https://dataverse.harvard.edu:443/dataverseuser.xhtml?editMode=CREATE&amp;redirectPage=%2Fdataverse.xhtml%3Falias%3Dse" title="Sign Up for a Dataverse Account">Sign Up</a>
+            <a class="btn btn-default" href="https://dataverse.harvard.edu:443/loginpage.xhtml?redirectPage=%2Fdataverse.xhtml%3Falias%3Dse" title="Log into your Dataverse Account">Log In</a>
+        </div></div></div><script id="addDataGuest_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","addData_popup",{id:"addDataGuest",modal:true});});</script></div><div id="shareDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="shareDialog_title" class="ui-dialog-title">Share Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="shareDialog_content">
+<form id="j_idt874" name="j_idt874" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt874" value="j_idt874" />
+ 
+                        <p class="help-block">Share this dataverse on your favorite social media networks.</p>
+                        <div id="sharrre-widget" data-url="https://dataverse.harvard.edu/dataverse/se" data-text="View this dataverse."></div>
+                        <div class="button-block">
+                            <button class="btn btn-default" onclick="PF('shareDialog').hide()" type="button">
+                                Close
+                            </button>
+                        </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:7" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form></div></div><script id="shareDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","shareDialog",{id:"shareDialog",modal:true});});</script><div id="linkDataverseForm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="linkDataverseForm_title" class="ui-dialog-title">Link Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="linkDataverseForm_content">
+<form id="j_idt876" name="j_idt876" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt876" value="j_idt876" />
+<input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:8" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form></div></div><script id="linkDataverseForm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","linkDataverseForm",{id:"linkDataverseForm",modal:true});});</script><div id="resetModifications" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="resetModifications_title" class="ui-dialog-title">Reset Modifications</span></div><div class="ui-dialog-content ui-widget-content" id="resetModifications_content">
+<form id="j_idt912" name="j_idt912" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt912" value="j_idt912" />
+
+                    <p class="text-warning">
+                        <span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to reset the selected metadata fields? If you do this, any customizations (hidden, required, optional) you have done will no longer appear.
+                    </p>
+                    <div class="button-block"><button id="j_idt912:j_idt914" name="j_idt912:j_idt914" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default" onclick="PrimeFaces.bcn(this,event,[function(event){check();PF('resetModifications').hide()},function(event){PrimeFaces.ab({s:&quot;j_idt912:j_idt914&quot;,f:&quot;j_idt912&quot;});return false;}]);" type="submit"><span class="ui-button-text ui-c">Continue</span></button><script id="j_idt912:j_idt914_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt912_j_idt914",{id:"j_idt912:j_idt914"});});</script>
+                        <button class="btn btn-link" onclick="uncheck();PF('resetModifications').hide()" type="button">                              
+                            Cancel
+                        </button>
+                    </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:9" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form></div></div><script id="resetModifications_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","resetModifications",{id:"resetModifications",modal:true});});</script>
+                <script>
+                    //<![CDATA[
+                    var scrollPos=0;
+                    $(document).ready(function () {
+                        initCarousel();
+                        popoverHTML('Allowed HTML Tags','&lt;a&gt;, &lt;b&gt;, &lt;blockquote&gt;, &lt;br&gt;, &lt;code&gt;, &lt;del&gt;, &lt;dd&gt;, &lt;dl&gt;, &lt;dt&gt;, &lt;em&gt;, &lt;hr&gt;, &lt;h1&gt;-&lt;h3&gt;, &lt;i&gt;, &lt;img&gt;, &lt;kbd&gt;, &lt;li&gt;, &lt;ol&gt;, &lt;p&gt;, &lt;pre&gt;, &lt;s&gt;, &lt;sup&gt;, &lt;sub&gt;, &lt;strong&gt;, &lt;strike&gt;, &lt;u&gt;, &lt;ul&gt;');
+                    });
+                    function initCarousel() {
+                        var owl1 = $("#featuredDataversesList");
+                        owl1.owlCarousel({
+                            pagination: false,
+                            navigation: false,
+                            items: 4, //10 items above 1000px browser width
+                            itemsDesktop: [1140, 4], //5 items between 1000px and 901px
+                            itemsDesktopSmall: [940, 3], // betweem 900px and 601px
+                            itemsTablet: [720, 2], //2 items between 600 and 0
+                            itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+                        });
+                        if (owl1.find('div.owl-item').length > 4) {
+                            // Custom Navigation Events
+                            $(".next1").click(function () {
+                                owl1.trigger('owl.next');
+                            });
+                            $(".prev1").click(function () {
+                                owl1.trigger('owl.prev');
+                            });
+                        } else {
+                            $("#featuredDataversesBlock .customNavigation a.btn").hide();
+                        }
+                        $('#featuredDataversesList .item').matchHeight();
+                    }
+                    function callOnError(){
+                        window.scrollTo(0, 0);
+                    }
+                    function updateInclude() {
+                        $('button[id$="hiddenRefresh"]').trigger('click');
+                    }
+                    function scrollAfterUpdate() {
+                        document.getElementById('metadataFieldOptionsPanel-Body').scrollTop = scrollPos;
+                    }
+                    
+                    function updateMetadata(checkbox) {
+                        var checked = checkbox.checked;
+                        if (checked === false){
+                            $('button[id$="updateMetadataButton"]').trigger('click');
+                        } else {
+                            PF('resetModifications').show();
+                        }
+                    }
+                    function check() {
+                        $('button[id$="resetToInherit"]').trigger('click');
+                    }
+                    function uncheck() {
+                        $('input:checkbox[id$="metadataRoot"]').prop('checked', false);
+                    }
+                    function updateOwnerDataverse() {
+                        $('button[id$="updateOwnerDataverse"]').trigger('click');
+                    }
+                    //]]>                                     
+                </script>
+        </div>
+    <footer>
+        <div id="dvfooter">
+            <div class="container">
+                <div class="row"><div class="col-sm-8 small">
+                        <p>Copyright &#169; 2022, The President &#38; Fellows of Harvard College |  <a href="../../support.dataverse.harvard.edu/harvard-dataverse-privacy-policy.html" rel="noopener" target="_blank">Privacy Policy</a>
+                        </p></div>
+                    <div class="col-sm-4 text-right">
+                        <div class="poweredbylogo">
+                            <span>Powered by</span>
+                            <a href="../../dataverse.org/index.html" title="The Dataverse Project" target="_blank" rel="noopener"><img src="../resources/images/dataverse_project_logo.svg" width="118" height="40" onerror="this.src='../resources/images/dataverseproject_logo.png'" alt="The Dataverse Project logo" /></a><span class="version">v. 5.11.1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><script>
+  //<![CDATA[
+  $(document).ready(function () {
+    $("#footer > div.container > div.row > div.col-sm-8.small > p").append("&#160;|&#160; <a href=\"https://www.harvard.edu/copyright-issue\" target=\"_blank\" rel=\"noopener\">Report Copyright Infringement</a> &#160;|&#160; <a href=\"https://accessibility.huit.harvard.edu/digital-accessibility-policy\" target=\"_blank\" rel=\"noopener\">Accessibility</a>");
+  });
+  //]]>
+</script>
+
+<style>
+#feedbackTab {position:fixed; bottom:0; right:50px;}
+#feedbackTab a.btn-feedback {border-bottom-right-radius:0; border-bottom-left-radius:0;}
+.btn-feedback {background-color:#C55B28; border-color:#C55B28; color:#fff;}
+.btn-feedback:hover, .btn-feedback:focus,
+.btn-feedback:active, .btn-feedback.active {background-color:#b05124; border-color: #9b471f; color:#fff;}
+</style>
+
+<div id="feedbackTab">
+    <a class="btn btn-feedback bootstrap-button-tooltip" href="https://goo.gl/forms/p7uu3GfiWYSlJrsi1" role="button" target="_blank" rel="noopener"  aria-label="Help improve Dataverse!" data-original-title="Help improve Dataverse!">
+        Feedback
+    </a>
+</div>
+
+    </footer><div id="ajaxStatusPanel"><div id="ajaxStatusPanel_start" style="display:none"><img src="https://dataverse.harvard.edu:443/resources/images/ajax-loading.gif" alt="Loading..." /></div></div><script id="ajaxStatusPanel_s" type="text/javascript">$(function(){PrimeFaces.cw("AjaxStatus","widget_ajaxStatusPanel",{id:"ajaxStatusPanel",delay:0});});</script><div id="contactDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="contactDialog_title" class="ui-dialog-title">Contact Harvard Dataverse Support</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="contactDialog_content"><div id="j_idt944">
+<form id="emailForm" name="emailForm" method="post" action="https://dataverse.harvard.edu:443/dataverse/se" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="emailForm" value="emailForm" />
+<span id="emailForm:j_idt945"></span><script type="text/javascript">$(function(){PrimeFaces.focus(null, 'contactDialog');});</script>
+                
+                <div class="form-group">
+                    <label for="messageTo" class="col-sm-3 control-label">To</label>
+                    <div class="col-sm-9">
+                        <p id="messageTo" class="form-control-static">Harvard Dataverse Support</p>
+                    </div>
+                </div>
+                
+                    <div class="form-group"><label for="emailForm:userEmail" class="col-sm-3 control-label">From <span class="glyphicon glyphicon-asterisk text-danger" title="Required field"></span></label>
+                        <div class="col-sm-9"><input id="emailForm:userEmail" name="emailForm:userEmail" type="text" value="" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control" size="30" /><script id="emailForm:userEmail_s" type="text/javascript">$(function(){PrimeFaces.cw("InputText","widget_emailForm_userEmail",{id:"emailForm:userEmail"});});</script>
+                        </div>
+                    </div>
+                
+                <div class="form-group"><label for="emailForm:messageSubject" class="col-sm-3 control-label">Subject <span class="glyphicon glyphicon-asterisk text-danger" title="Required field"></span></label>
+                    <div class="col-sm-9"><input id="emailForm:messageSubject" name="emailForm:messageSubject" type="text" value="" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control" /><script id="emailForm:messageSubject_s" type="text/javascript">$(function(){PrimeFaces.cw("InputText","widget_emailForm_messageSubject",{id:"emailForm:messageSubject"});});</script>
+                    </div>
+                </div>   
+                
+                <div class="form-group"><label for="emailForm:userMessage" class="col-sm-3 control-label">Message <span class="glyphicon glyphicon-asterisk text-danger" title="Required field"></span></label>
+                    <div class="col-sm-9"><textarea id="emailForm:userMessage" name="emailForm:userMessage" class="ui-inputfield ui-inputtextarea ui-widget ui-state-default ui-corner-all form-control" cols="20" rows="10" title="Message" maxlength="2147483647"></textarea><script id="emailForm:userMessage_s" type="text/javascript">$(function(){PrimeFaces.cw("InputTextarea","widget_emailForm_userMessage",{id:"emailForm:userMessage",autoResize:false});});</script>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <p><span class="highlightBold">Please fill this out to prove you are not a robot.</span> <span class="glyphicon glyphicon-asterisk text-danger" title="Required field"></span>
+                        </p>
+                        <label for="emailForm:messageSum"> +  = 
+                        </label><input id="emailForm:messageSum" name="emailForm:messageSum" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all " size="4" title="Human Access Validation Answer" /><script id="emailForm:messageSum_s" type="text/javascript">$(function(){PrimeFaces.cw("InputText","widget_emailForm_messageSum",{id:"emailForm:messageSum"});});</script>
+                    </div>
+                </div>
+                
+                <div class="button-block"><button id="emailForm:j_idt973" name="emailForm:j_idt973" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default" onclick="PrimeFaces.ab({s:&quot;emailForm:j_idt973&quot;,f:&quot;emailForm&quot;,u:&quot;emailForm&quot;,onco:function(xhr,status,args,data){if (args &amp;&amp; !args.validationFailed) PF('contactForm').hide();;},pa:[{name:&quot;DO_VALIDATION&quot;,value:&quot;true&quot;}],fp:&quot;j_idt944&quot;});return false;" type="submit"><span class="ui-button-text ui-c">Send Message</span></button><script id="emailForm:j_idt973_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_emailForm_j_idt973",{id:"emailForm:j_idt973"});});</script>
+                    <button class="btn btn-link" onclick="PF('contactForm').hide()" type="button">
+                        Cancel
+                    </button>
+                </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:10" value="4057295738048556518:9190451335292522898" autocomplete="off" />
+</form></div></div></div><script id="contactDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","contactForm",{id:"contactDialog",modal:true});});</script>
+        <script src="https://dataverse.harvard.edu:443/javax.faces.resource/js/dv_rebind_bootstrap_ui.js.xhtml?version=5.11.1"></script>
+        <script src="https://dataverse.harvard.edu:443/javax.faces.resource/bs/js/bootstrap.min.js.xhtml?version=5.11.1"></script>
+        <script defer="defer" src="https://dataverse.harvard.edu:443/javax.faces.resource/js/ie-compat.js.xhtml?version=5.11.1"></script>
+        <script defer="defer" src="https://dataverse.harvard.edu:443/javax.faces.resource/js/owl.carousel.js.xhtml?version=5.11.1"></script>
+        <script defer="defer" src="https://dataverse.harvard.edu:443/javax.faces.resource/js/jquery.matchHeight.js.xhtml?version=5.11.1"></script>
+        <script src="https://dataverse.harvard.edu:443/javax.faces.resource/js/jquery.sharrre.js.xhtml?version=5.11.1"></script>
+        <script src="https://dataverse.harvard.edu:443/javax.faces.resource/js/clipboard.min.js.xhtml?version=5.11.1"></script> 
+        
+        <script>
+            //<![CDATA[
+            $(document).ready(function () {
+                // Navbar Search Toggle
+                $(document).on('click', '#navbar-search-toggle', function (e) {
+                    $(this).parent("li").hide();
+                    $("form.navbar-form[role='search']").show();
+                });
+                $('body').click(function (e) {
+                    if (!$(e.target).closest("form.navbar-form[role='search']").length) {
+                        $("form.navbar-form[role='search']").hide();
+                        $("#navbar-search-toggle").parent("li").show();
+                    }
+                    ;
+                });
+            });
+            function clickSupportLink() {
+                $("[id$='headerSupportLink']").click();
+            }
+            //]]>
+        </script><script type="text/javascript" id="j_idt977">bind_bsui_components();</script></body>
+
+<!-- Mirrored from dataverse.harvard.edu:443/dataverse/se;jsessionid=e949dbaac3f2d601284dd956e917 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Sep 2022 05:47:17 GMT -->
+</html>

@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  
+<!-- Mirrored from guides.dataverse.org/en/5.11.1/user/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Sep 2022 05:47:05 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Guide &#8212; Dataverse.org</title>
+    <link rel="stylesheet" href="https://guides.dataverse.org/en/5.11.1/_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://guides.dataverse.org/en/5.11.1/_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://guides.dataverse.org/en/5.11.1/_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="https://guides.dataverse.org/en/5.11.1/_font/fontawesome/css/all.min.css" />
+    <script id="documentation_options" data-url_root="../" src="https://guides.dataverse.org/en/5.11.1/_static/documentation_options.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/jquery.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/underscore.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/doctools.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_font/fontawesome/js/all.min.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/js/jquery-3.5.1.min.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/js/jquery-ui.min.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/js/jquery-fix.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/bootstrap-sphinx.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/navbarscroll.js"></script>
+    <script src="https://guides.dataverse.org/en/5.11.1/_static/dv_rebind_bootstrap_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://guides.dataverse.org/en/5.11.1/_static/fontcustom.css" />
+<link type="text/css" rel="stylesheet" href="https://guides.dataverse.org/en/5.11.1/_static/socicon.css" />
+<link type="text/css" rel="stylesheet" href="https://guides.dataverse.org/en/5.11.1/_static/theme.css" />
+<link type="text/css" rel="stylesheet" href="https://guides.dataverse.org/en/5.11.1/_static/primefaces.css" />
+<link type="text/css" rel="stylesheet" href="https://guides.dataverse.org/en/5.11.1/_static/docsdataverse_org.css" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link type="image/png" rel="icon" href="https://guides.dataverse.org/en/5.11.1/_static/images/favicondataverse.png" />
+
+  </head><body>
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#dv-bs-navbar-details">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../../../../dataverse.org/index.html" id="dataverse-org-homepage-url">Dataverse Project</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+
+       <div class="collapse navbar-collapse" id="dv-bs-navbar-details">
+           <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a target="_blank" href="http://dataverse.org/about">About the Project</a></li>
+                        <li><a target="_blank" href="http://dataverse.org/add-data">Add Data</a></li>
+                        <li><a target="_blank" href="http://dataverse.org/blog">Blog</a></li>
+                        <li><a target="_blank" href="http://dataverse.org/presentations">Presentations</a></li>
+                        <li><a target="_blank" href="http://dataverse.org/publications">Publications</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a target="_blank" href="../../../../dataverse.org/index.html">
+                        Community
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Best Practices <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a target="_blank" href="https://dataverse.org/best-practices/academic-credit">Academic Credit</a></li>
+                        <li><a target="_blank" href="https://dataverse.org/best-practices/data-citation">Data Citation</a></li>
+                        <li><a target="_blank" href="https://dataverse.org/best-practices/dataverse-community-norms">Dataverse Community Norms</a></li>
+                        <li><a target="_blank" href="https://dataverse.org/best-practices/data-management">Data Management</a></li>
+                        <li><a target="_blank" href="https://dataverse.org/best-practices/replication-dataset">Replication Dataset Guidelines</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Software <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a target="_blank" href="http://dataverse.org/software-features">Features</a></li>
+                        <li><a target="_blank" href="http://github.com/IQSS/dataverse">Source Code</a></li>
+                        <li><a target="_blank" href="http://guides.dataverse.org/en/latest/user/index.html">User Guide</a></li>
+                        <li><a target="_blank" href="http://guides.dataverse.org/en/latest/installation/index.html">Installation Guide</a></li>
+                        <li><a target="_blank" href="http://guides.dataverse.org/en/latest/api/index.html">API Guide</a></li>
+                        <li><a target="_blank" href="http://guides.dataverse.org/en/latest/developers/index.html">Developer Guide</a></li>
+                        <li><a target="_blank" href="http://guides.dataverse.org/en/latest/style/index.html">Style Guide</a></li>
+                        <li><a target="_blank" href="http://guides.dataverse.org/en/latest/admin/index.html">Admin Guide</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a target="_blank" href="../../../../dataverse.org/index.html">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+       </div><!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<form action="https://guides.dataverse.org/en/5.11.1/search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" aria-label="Search"/>
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html">Account Creation + Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html">Finding and Using Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html">Dataverse Collection Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html">Dataset + File Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/index.html">Tabular Data File Ingest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/appendix.html">Appendix</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/admin/index.html">Admin Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/api/index.html">API Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/installation/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/developers/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/style/index.html">Style Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content" role="main">
+      
+  <div class="section" id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline"><i class="fas fa-link"></i></a></h1>
+<p><strong>Contents:</strong></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html">Account Creation + Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#account-information">Account Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#account-log-in-options">Account Log In Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#create-account">Create Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#edit-account">Edit Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#convert-account">Convert Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#reset-account-password">Reset Account Password</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#remote-authentication">Remote Authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#institutional-log-in">Institutional Log In</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#create-a-dataverse-installation-account-using-institutional-log-in">Create a Dataverse installation account using Institutional Log In</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#convert-your-dataverse-installation-account-to-use-your-institutional-log-in">Convert your Dataverse installation account to use your Institutional Log In</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#convert-your-dataverse-installation-account-away-from-your-institutional-log-in">Convert your Dataverse installation account away from your Institutional Log In</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#orcid-log-in">ORCID Log In</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#create-a-dataverse-installation-account-using-orcid">Create a Dataverse installation account using ORCID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#convert-your-dataverse-installation-account-to-use-orcid-for-log-in">Convert your Dataverse installation account to use ORCID for log in</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#convert-your-dataverse-installation-account-away-from-orcid-for-log-in">Convert your Dataverse installation account away from ORCID for log in</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#microsoft-azure-ad-github-and-google-log-in">Microsoft Azure AD, GitHub, and Google Log In</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#my-data">My Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#notifications">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#api-token">API Token</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#what-apis-are-and-why-they-are-useful">What APIs Are and Why They Are Useful</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#how-your-api-token-is-like-a-password">How Your API Token Is Like a Password</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#how-to-create-your-api-token">How to Create Your API Token</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#how-to-recreate-your-api-token">How to Recreate Your API Token</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/account.html#additional-information-about-api-tokens-and-dataverse-software-apis">Additional Information about API Tokens and Dataverse Software APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html">Finding and Using Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#finding-data">Finding Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#basic-search">Basic Search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#sorting-and-viewing-search-results">Sorting and Viewing Search Results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#advanced-search">Advanced Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#browsing-a-dataverse-installation">Browsing a Dataverse Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#saved-search">Saved Search</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#using-data">Using Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#view-dataverse-collections-datasets">View Dataverse Collections + Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#view-files">View Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#file-search-within-datasets">File Search within Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#tree-view">Tree View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#cite-data">Cite Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#id1">Download Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#tabular-data">Tabular Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#downloading-via-url">Downloading via URL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#downloading-a-dataverse-file-package-via-url">Downloading a Dataverse File Package via URL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#downloading-a-dataverse-file-package-via-rsync">Downloading a Dataverse File Package via rsync</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#explore-data">Explore Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/find-use-data.html#exploratory-data-analysis-using-differentially-private-metadata-experimental">Exploratory Data Analysis Using Differentially Private Metadata (Experimental)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html">Dataverse Collection Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#create-a-new-dataverse-collection">Create a New Dataverse Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#edit-dataverse-collection">Edit Dataverse Collection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#general-information">General Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#theme">Theme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#widgets">Widgets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#dataverse-collection-search-box-widget">Dataverse Collection Search Box Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#dataverse-collection-listing-widget">Dataverse Collection Listing Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#adding-widgets-to-an-openscholar-website">Adding Widgets to an OpenScholar Website</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#roles-permissions">Roles &amp; Permissions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#setting-access-configurations">Setting Access Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#assigning-roles-to-users-and-groups">Assigning Roles to Users and Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#dataset-templates">Dataset Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#dataset-guestbooks">Dataset Guestbooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#featured-dataverse-collection">Featured Dataverse Collection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#dataset-linking">Dataset Linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#dataverse-collection-linking">Dataverse Collection Linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataverse-management.html#publish-your-dataverse-collection">Publish Your Dataverse Collection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html">Dataset + File Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#supported-metadata">Supported Metadata</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#supported-metadata-export-formats">Supported Metadata Export Formats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#adding-a-new-dataset">Adding a New Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#supported-html-fields">Supported HTML Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#file-upload">File Upload</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#http-upload">HTTP Upload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#dropbox-upload">Dropbox Upload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#rsync-ssh-upload">rsync + SSH Upload</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#file-upload-script">File Upload Script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#command-line-dvuploader">Command-line DVUploader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#duplicate-files">Duplicate Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#file-handling">File Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#file-previews">File Previews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#tabular-data-files">Tabular Data Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#research-code">Research Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#astronomy-fits">Astronomy (FITS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#compressed-files">Compressed Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#other-file-types">Other File Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#restricted-files">Restricted Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#edit-files">Edit Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#edit-file-metadata">Edit File Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#edit-file-variable-metadata">Edit File Variable Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#file-path">File Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#file-tags">File Tags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#replace-files">Replace Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#choosing-a-license">Choosing a License</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#license-selection-and-professional-norms">License Selection and Professional Norms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#custom-terms-of-use-for-datasets">Custom Terms of Use for Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#restricted-files-terms-of-access">Restricted Files + Terms of Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#creating-and-depositing-differentially-private-metadata-experimental">Creating and Depositing Differentially Private Metadata (Experimental)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#guestbook">Guestbook</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#roles-permissions">Roles &amp; Permissions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#dataset-level">Dataset-Level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#file-level">File-Level</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#data-provenance">Data Provenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#thumbnails-widgets">Thumbnails + Widgets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#thumbnails">Thumbnails</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#widgets">Widgets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#dataset-widget">Dataset Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#dataset-citation-widget">Dataset Citation Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#adding-widgets-to-an-openscholar-website">Adding Widgets to an OpenScholar Website</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#publish-dataset">Publish Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#submit-for-review">Submit for Review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#private-url-to-review-unpublished-dataset">Private URL to Review Unpublished Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#embargoes">Embargoes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#dataset-versions">Dataset Versions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#version-details">Version Details</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#dataset-metrics-and-make-data-count">Dataset Metrics and Make Data Count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#cloud-storage-computing">Cloud Storage + Computing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#cloud-computing">Cloud Computing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#cloud-storage-access">Cloud Storage Access</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/dataset-management.html#dataset-deaccession">Dataset Deaccession</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/index.html">Tabular Data File Ingest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/supportedformats.html">Supported File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/ingestprocess.html">Tabular Data, Representation, Storage and Ingest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/ingestprocess.html#what-happens-during-this-ingest">What Happens During this “Ingest”?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/ingestprocess.html#tabular-data-and-metadata">Tabular Data and Metadata</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/ingestprocess.html#data-vs-metadata">Data vs. Metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/ingestprocess.html#tabular-metadata-in-the-dataverse-software">Tabular Metadata in the Dataverse Software</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/spss.html">SPSS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/spss.html#supported-versions">Supported Versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/spss.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/spss.html#spss-control-cards-not-supported">SPSS Control Cards - not supported</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/spss.html#support-for-language-encodings-in-spss">Support for Language Encodings in SPSS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/stata.html">Stata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html">R Data Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html#data-formatting-requirements">Data Formatting Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html#data-types-compared-to-other-supported-formats-stat-spss">Data Types, compared to other supported formats (Stat, SPSS)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html#integers-doubles-character-strings">Integers, Doubles, Character strings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html#r-factors">R Factors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html#boolean-values">Boolean values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html#limitations-of-r-as-compared-to-spss-and-stata">Limitations of R, as compared to SPSS and STATA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/rdata.html#time-values-in-r">Time values in R</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/excel.html">Excel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/excel.html#supported-formats">Supported Formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/excel.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/excel.html#ingest-errors">Ingest Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/excel.html#example-data">Example Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/csv-tsv.html">CSV/TSV</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/csv-tsv.html#ingest-of-comma-separated-values-and-tab-separated-values-files-as-tabular-data">Ingest of Comma-Separated Values and Tab-Separated Values files as tabular data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/csv-tsv.html#main-formatting-requirements">Main formatting requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/csv-tsv.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/tabulardataingest/csv-tsv.html#recognized-data-types-and-formatting">Recognized data types and formatting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/appendix.html">Appendix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://guides.dataverse.org/en/5.11.1/user/appendix.html#metadata-references">Metadata References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+      <p>Developed at the <a href="http://www.iq.harvard.edu/" title="Institute for Quantitative Social Science" target="_blank">Institute for Quantitative Social Science</a>  &nbsp;|&nbsp;  Code available at <a href="https://github.com/IQSS/dataverse" title="Dataverse on GitHub" target="_blank"><span class="socicon socicon-github"></span></a> &nbsp;|&nbsp; Created using <a href="http://sphinx.pocoo.org/" title="Sphinx" target="_blank">Sphinx</a> 3.5.4<br/>Last updated on Aug 02, 2022 &nbsp;|&nbsp; Dataverse v. 5.11.1 &nbsp;|&nbsp; View the <a href="http://guides.dataverse.org/en/latest/" title="Dataverse Guides">latest version of Dataverse Guides</a></p>
+        <p>Copyright &#169; 2022, The President &amp; Fellows of Harvard College</p> 
+  </div>
+</footer>
+<script>
+    $jqTheme(document).ready(function () {
+        // Rebind bootstrap UI components
+        bind_bsui_components();
+    });
+</script>
+
+  </body>
+
+<!-- Mirrored from guides.dataverse.org/en/5.11.1/user/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Sep 2022 05:47:05 GMT -->
+</html>

@@ -1,0 +1,16 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+.docs.google.com	TRUE	/forms/d/e/1FAIpQLSf4VinfXacN2fsZxWn1_ITCAlUqzdBT7cNk5C5DjvKBRf6wtQ	FALSE	1999999999	S	spreadsheet_forms=jyJAndr1w1R6iejFbfMa4N5Xj6_Gi25zfaqzfZjs7pk
+.docs.google.com	TRUE	/forms/d/e/1FAIpQLSf4VinfXacN2fsZxWn1_ITCAlUqzdBT7cNk5C5DjvKBRf6wtQ	FALSE	1999999999	COMPASS	spreadsheet_forms=CjIACWuJVwnJOwfRgXPTM34yaaQ3DoEI19ui9TN_bIgezDd1sZm9dljW_deRn7itcct88RDn5qqZBho0AAlriVd-6R8d1E4bHSbggC4PdHzLoTWmE03obEtCUOkZ_0LxLHFXWJ-pkT5UQ5jwaZSRXw==
+dataverse.harvard.edu:443	TRUE	/	FALSE	1999999999	JSESSIONID	e949dbaac3f2d601284dd956e917
+dataverse.harvard.edu	TRUE	/	FALSE	1999999999	JSESSIONID	e94c066a3e70d95a6f4410ac1f2f
+dataverse.harvard.edu	TRUE	/	FALSE	1999999999	AWSALB	+mQiqffqsH4MdrOvUpQOmPNRoWgASLsYzHVzybrrTn+tXiaL5+ZntjmIrzNnzODedjR1ursL7nCmSCL3dsAItSMbmRnAbopQ6Iq2mVMvqDXieKXKlEgSEsiS1Im/
+dataverse.harvard.edu	TRUE	/	FALSE	1999999999	AWSALBCORS	+mQiqffqsH4MdrOvUpQOmPNRoWgASLsYzHVzybrrTn+tXiaL5+ZntjmIrzNnzODedjR1ursL7nCmSCL3dsAItSMbmRnAbopQ6Iq2mVMvqDXieKXKlEgSEsiS1Im/
+dataverse.harvard.edu	TRUE	/	FALSE	1999999999	SameSite	None
+dataverse.harvard.edu:443	TRUE	/	FALSE	1999999999	csfcfc	qcckeenmTq0rPFakyXB3jrTEehVG65o%3D
+.google.com	TRUE	/	FALSE	1999999999	NID	511=LEgHxmwEkxtqfOM4FMivYfSb1HNyFhOMWLialjBuYKB-vNryfD2lyMA5qJZjRxqUUWB4xEhGSc6cI5Ww7tRCueFR_RkQZWPdiYInWPFI5OPD3hBkfDzZ8r4WQ3rTedpaErT2fYpsC-Mv3Z8ec0lNbY1g7om673x1xoHsGw8m074
+docs.google.com	TRUE	/	FALSE	1999999999	SameSite	none
+dataverse.harvard.edu:443	TRUE	/	FALSE	1999999999	AWSALB	kJquOpVYZy5SDBmUfGGqNjT5YCfTKmn3uq6XDizDXFFh74JCwhsCNW+ZBPxd9/fLTs2Y6GDPKXzp9ZLbx/9Of61vAlU3XIegMsOsE5uotYPHZC2Qx+MTd4txre8r
+dataverse.harvard.edu:443	TRUE	/	FALSE	1999999999	AWSALBCORS	kJquOpVYZy5SDBmUfGGqNjT5YCfTKmn3uq6XDizDXFFh74JCwhsCNW+ZBPxd9/fLTs2Y6GDPKXzp9ZLbx/9Of61vAlU3XIegMsOsE5uotYPHZC2Qx+MTd4txre8r
+dataverse.harvard.edu:443	TRUE	/	FALSE	1999999999	SameSite	None
+

@@ -1,0 +1,772 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!-- Mirrored from dataverse.harvard.edu:443/dataverse/harvardopendata;jsessionid=e949dbaac3f2d601284dd956e917 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Sep 2022 05:47:18 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head id="j_idt29"><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="async" src="../../www.googletagmanager.com/gtag/js0cbe?id=UA-61753334-1"></script>
+<script>
+  //<![CDATA[
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'UA-61753334-1');
+
+  window.addEventListener("load", enableAnalyticsEventCapture, false);
+
+  function enableAnalyticsEventCapture() {
+    // Download button
+    $(document).on("click", ".btn-download, .btn-download.dropdown-toggle + ul.dropdown-menu li a", function() {
+      var category = stripSize($(this).text());
+      var label = getFileId($(this));
+      gtag('event', 'Download',{'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Request Access button
+    $(document).on("click", ".btn-request", function() {
+      var category = $(this).text();
+      var label = getFileId($(this));
+      gtag('event', 'Request Access', {'event_category' : category,
+                                     'event_label' : label});
+    });
+
+    // Explore button
+    $(document).on("click", ".btn-explore, .btn-explore.dropdown-toggle + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = getFileId($(this));
+      gtag('event', 'Explore', {'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Compute button
+    $(document).on("click", ".btn-compute, .btn-compute.dropdown-toggle + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = getFileId($(this));
+      gtag('event', 'Compute', {'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Preview button
+    $(document).on("click", ".btn-preview, .btn-preview.dropdown-toggle + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = getFileId($(this));
+      gtag('event', 'Preview', {'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Cite button
+    $(document).on("click", ".downloadCitation + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = 'Unknown';
+      if($('#fileForm').length > 0) {
+        label = stripId($('#fileForm').attr('action'));
+      } else if($('#datasetForm').length > 0) {
+        label = stripId($('#datasetForm').attr('action'));
+      }
+      gtag('event', 'Download Citation', {'event_category' : category,
+                                        'event_label' : label});
+    });
+
+    // Export Metadata button
+    $(document).on("click", ".btn-export + ul.dropdown-menu li a", function() {
+      var category = $(this).text();
+      var label = 'Unknown';
+      if($('#fileForm').length > 0) {
+        label = stripId($('#fileForm').attr('action'));
+      } else if($('#datasetForm').length > 0) {
+        label = stripId($('#datasetForm').attr('action'));
+      }
+      gtag('event', 'Export Metadata', {'event_category' : category,
+                                        'event_label' : label});
+    });
+
+    // Contact button
+    $(document).on("click", ".btn-contact", function() {
+      var category = $(this).text();
+      var label = 'Unknown';
+      if($('#fileForm').length > 0) {
+        label = stripId($('#fileForm').attr('action'));
+      } else if($('#datasetForm').length > 0) {
+        label = stripId($('#datasetForm').attr('action'));
+      } else if($('#dataverseForm').length > 0) {
+        label = stripAlias($('#dataverseForm').attr('action'));
+      }
+      gtag('event', 'Contact', {'event_category' : category,
+                                'event_label' : label});
+    });
+
+    // Share button
+    $(document).on("click", 'div[id$="shareDialog"] a[class^="sharrre"]', function() {
+      var sharrreVal = $(this).attr('class');
+      var category = sharrreVal.substring(sharrreVal.indexOf('-') + 1) ;
+      var label = 'Unknown';
+      if($('#fileForm').length > 0) {
+        label = stripId($('#fileForm').attr('action'));
+      } else if($('#datasetForm').length > 0) {
+        label = stripId($('#datasetForm').attr('action'));
+      } else if($('#dataverseForm').length > 0) {
+        label = stripAlias($('#dataverseForm').attr('action'));
+      }
+      gtag('event', 'Share', {'event_category' : category,
+                              'event_label' : label});
+    });
+
+  }
+
+  function getFileId(target) {
+    var label = 'Unknown';
+    if(target.parents('th, #actionButtonBlock .btn-access-dataset + ul.dropdown-menu').length>0) {
+      //Special case - the Download button that downloads all selected files in the dataset
+      label = 'file(s) from ' + stripId($('#datasetForm').attr('action'));
+    } else {
+      var row = target.parents('tr')[0];
+      if(row != null) {
+        //finds the file id/DOI in the Dataset page
+        label = $(row).find('td.col-file-metadata  a').attr('href');
+      } else {
+        //finds the file id/DOI in the file page
+        label = $('#fileForm').attr('action');
+      }
+      label = stripId(label);
+    }
+    return label;
+  }
+
+
+  function stripId(label) {
+    var index = label.indexOf('&');
+    if(index == -1) index = label.length;
+    if(label.indexOf('persistentId=') >= 0) {
+      label = label.substring(label.indexOf('persistentId=') + 13, index);
+    }
+    if(label.indexOf('fileId=') >= 0) {
+      label = label.substring(label.indexOf('fileId=') + 7, index);
+    }
+    return(label);
+  }
+
+  function stripAlias(label) {
+    var index = label.length;
+    label = label.substring(label.indexOf('index.html') + 11, index).split(/[?#]/)[0];
+    return(label);
+  }
+
+  function stripSize(category) {
+    var index = category.indexOf('ZIP (');
+    if(index >= 0) {
+      category = category.substring(0, index + 3);
+    }
+    return(category);
+  }
+  //]]>
+</script>
+
+            <title>The Harvard Open Data Dataverse</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="description" content="This Dataverse has data about Harvard University under a CC0 waiver, open to the world." /><link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/theme.css.xhtml?ln=primefaces-bootstrap&amp;v=11.0.0" /><link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/primeicons/primeicons.css.xhtml?ln=primefaces&amp;v=11.0.0" /><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/omnifaces.js.xhtml?ln=omnifaces&amp;v=3.8"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/core.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/components.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/components.css.xhtml?ln=primefaces&amp;v=11.0.0" /><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/jsf.js.xhtml?ln=javax.faces"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/watermark/watermark.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript" src="https://dataverse.harvard.edu:443/javax.faces.resource/touch/touchswipe.js.xhtml?ln=primefaces&amp;v=11.0.0"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='en';PrimeFaces.settings.viewId='/dataverse.xhtml';PrimeFaces.settings.contextPath='';PrimeFaces.settings.cookiesSecure=false;}</script>
+        <link rel="apple-touch-icon" sizes="180x180" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/apple-touch-icon.png.xhtml" />
+        <link rel="icon" type="image/png" sizes="16x16" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/favicon-16x16.png.xhtml" />
+        <link rel="icon" type="image/png" sizes="32x32" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/favicon-32x32.png.xhtml" />
+        <link rel="manifest" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/site.webmanifest.xhtml" />
+        <link rel="mask-icon" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/fav/safari-pinned-tab.svg.xhtml" color="#da532c" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <link type="image/png" rel="image_src" href="https://dataverse.harvard.edu:443/javax.faces.resource/images/dataverseproject.png.xhtml" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/bs/css/bootstrap.min.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/bs/css/bootstrap-theme.min.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/ie-compat.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/owl.carousel.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/fontcustom.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/socicon.css.xhtml?version=5.11.1" />
+        <link type="text/css" rel="stylesheet" href="https://dataverse.harvard.edu:443/javax.faces.resource/css/structure.css.xhtml?version=5.11.1" />
+            <style>
+                /* Custom CSS */
+                #navbarFixed div.navbar-header img.navbar-brand.custom-logo {height:50px !important;}
+#dataverseDesc span > span > span > h3 {font-weight: 300 !important;}
+
+nav.navbar.navbar-default {background: #ececec !important;}
+/* #footer {background: #ececec !important; padding-top:1.25em;} */
+
+            </style></head><body>
+	<a href="#content" class="sr-only">Skip to main content</a>
+
+    <nav id="dataverse-header-block"><div id="navbarFixed" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar" aria-pressed="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="../index.html"><img src="https://dataverse.harvard.edu:443/logos/navbar/logo.png" alt="Harvard Dataverse homepage" class="navbar-brand custom-logo" />
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="topNavBar">
+                    <ul class="nav navbar-nav navbar-right"><li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add Data <b class="caret"></b></a>
+                            <ul class="dropdown-menu"><li><a href="https://dataverse.harvard.edu:443/dataverse.xhtml?ownerId=1">New Dataverse</a></li><li><a href="https://dataverse.harvard.edu:443/dataset.xhtml?ownerId=1">New Dataset</a></li>
+                            </ul></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search <b class="caret"></b></a>
+                            <ul class="dropdown-menu navbar-search">
+                                <li>
+                                    <form class="form-inline" role="search">
+                                        <label id="searchNavLabel" class="sr-only" for="navbarsearch">Search</label>
+                                        <div class="input-group">
+                                            <input id="navbarsearch" type="text" class="form-control" size="28" value="" placeholder="Search all dataverses..." />
+                                            <span class="input-group-btn">
+                                                <button type="submit" title="Find" class="btn btn-default bootstrap-button-tooltip" aria-labelledby="searchNavLabel" onclick="window.location='/dataverse/harvard?q=' + document.getElementById('navbarsearch').value;return false;">
+                                                    <span class="glyphicon glyphicon-search no-text"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li><li><a href="../../support.dataverse.harvard.edu/index.html" rel="noopener" target="_blank">About</a></li>
+                        <li><a href="https://guides.dataverse.org/en/5.11.1/user" rel="noopener" target="_blank">User Guide</a>
+                        </li>
+                            <li>
+<form id="j_idt72" name="j_idt72" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" class="navbar-form navbar-left navbar-form-link" enctype="application/x-www-form-urlencoded" data-partialsubmit="true">
+<input type="hidden" name="j_idt72" value="j_idt72" />
+<a id="j_idt72:headerSupportLink" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;j_idt72:headerSupportLink&quot;,f:&quot;j_idt72&quot;,u:&quot;contactDialog&quot;,onco:function(xhr,status,args,data){PF('contactForm').show();}});return false;">Support</a><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/dataverseuser.xhtml?editMode=CREATE&amp;redirectPage=%2Fdataverse.xhtml%3Falias%3Dharvardopendata">
+                                    Sign Up
+                                </a>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/loginpage.xhtml?redirectPage=%2Fdataverse.xhtml%3Falias%3Dharvardopendata">
+                                    Log In
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div></div>
+        
+        <noscript>
+            <div id="noscript-alert" class="bg-danger">
+                <div class="alert container text-danger no-margin-bottom">Please enable JavaScript in your browser. It is required to use most of the features of Dataverse.
+                </div>
+            </div>
+        </noscript>
+<form id="j_idt126" name="j_idt126" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" class="form-inline" enctype="application/x-www-form-urlencoded" data-partialsubmit="true">
+<input type="hidden" name="j_idt126" value="j_idt126" />
+<input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:1" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form><div style="background:#FFFFFF;" id="dataverseHeader" class="container bg-muted">
+            <div class="dataverseHeaderBlock"><div class="dataverseHeaderCell dataverseHeaderName">
+                    <a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata" class="dataverseHeaderDataverseName" style="color:#428bca;"><h1>The Harvard Open Data Dataverse</h1></a><span style="color:#666666;"> (Harvard University)</span></div>
+            </div></div><div id="breadCrumbPanel"><div id="breadcrumbNavBlock" class="container">
+                <div class="breadcrumbBlock">
+                            <a id="breadcrumbLnk0" href="https://dataverse.harvard.edu:443/dataverse/harvard">Harvard Dataverse
+                            </a>
+                </div><span class="breadcrumbCarrot"> &gt; </span>
+                <div class="breadcrumbBlock">
+                </div></div></div><div id="messagePanel">
+            <div class="container messagePanel">
+            </div></div>
+    </nav>
+        <div class="container" id="content" role="main">
+<form id="dataverseForm" name="dataverseForm" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="dataverseForm" value="dataverseForm" />
+<div id="actionButtonBlock" class="col-xs-12 button-block margin-bottom">
+                            <div class="row">
+                                
+                                
+                                <div class="col-xs-12 text-right padding-none">
+                                    
+                                    <div class="btn-group" role="group"><a id="dataverseForm:j_idt351" href="#" class="ui-commandlink ui-widget text-button btn-contact bootstrap-button-tooltip" onclick="PrimeFaces.ab({s:&quot;dataverseForm:j_idt351&quot;,f:&quot;dataverseForm&quot;,u:&quot;contactDialog&quot;,onco:function(xhr,status,args,data){PF('contactForm').show();},pa:[{name:&quot;DO_VALIDATION&quot;,value:&quot;false&quot;}]});return false;" title="Email Dataverse Contact" type="button">
+                                                <span class="glyphicon glyphicon-envelope"></span> Contact
+                                        </a><a id="dataverseForm:j_idt354" href="#" class="ui-commandlink ui-widget text-button btn-share bootstrap-button-tooltip" onclick="PrimeFaces.ab({s:&quot;dataverseForm:j_idt354&quot;,f:&quot;dataverseForm&quot;,onco:function(xhr,status,args,data){PF('shareDialog').show();sharrre();;}});return false;" title="Share Dataverse" type="button">
+                                            <span class="glyphicon glyphicon-share"></span> Share
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                            </div></div><div class="row margin-bottom">
+                                <div id="dataverseDesc" class="col-xs-12">This Dataverse has data about Harvard University under a CC0 waiver, open to the world.
+                                </div></div><div id="dataverseForm:browseOptsForm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dataverseForm:browseOptsForm_title" class="ui-dialog-title">Featured Dataverses</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="dataverseForm:browseOptsForm_content">
+                            <p class="text-danger">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span> In order to use this feature you must have at least one published dataverse.
+                            </p>
+                            <div class="button-block">
+                                <button class="btn btn-default" onclick="PF('browseOptsForm').hide();" type="button">                              
+                                    Close
+                                </button>
+                            </div></div></div><script id="dataverseForm:browseOptsForm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","browseOptsForm",{id:"dataverseForm:browseOptsForm",modal:true});});</script><div id="dataverseForm:publishDvConfirm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dataverseForm:publishDvConfirm_title" class="ui-dialog-title">Publish Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="dataverseForm:publishDvConfirm_content">
+                        <p class="text-warning">
+                            <span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to publish your dataverse? Once you do so it must remain published.
+                        </p>
+                        <div class="button-block"><button id="dataverseForm:j_idt431" name="dataverseForm:j_idt431" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default" onclick="PrimeFaces.bcn(this,event,[function(event){PF('confirmation').hide()},function(event){PrimeFaces.ab({s:&quot;dataverseForm:j_idt431&quot;,f:&quot;dataverseForm&quot;});return false;}]);" type="submit"><span class="ui-button-text ui-c">Continue</span></button><script id="dataverseForm:j_idt431_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_dataverseForm_j_idt431",{id:"dataverseForm:j_idt431"});});</script>
+                            <button class="btn btn-link" onclick="PF('confirmation').hide();" type="button">                              
+                                Cancel
+                            </button>
+                        </div></div></div><script id="dataverseForm:publishDvConfirm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","confirmation",{id:"dataverseForm:publishDvConfirm",modal:true});});</script><div id="dataverseForm:mayNotRelease" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dataverseForm:mayNotRelease_title" class="ui-dialog-title">Publish Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="dataverseForm:mayNotRelease_content">
+                        <p class="text-danger">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span> This dataverse cannot be published because the dataverse it is in has not been published.
+                        </p>
+                        <div class="button-block">
+                            <button class="btn btn-default" onclick="PF('mayNotRelease').hide();" type="button">                              
+                                Close
+                            </button>
+                        </div></div></div><script id="dataverseForm:mayNotRelease_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","mayNotRelease",{id:"dataverseForm:mayNotRelease",modal:true});});</script><div id="dataverseForm:deleteDvConfirm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dataverseForm:deleteDvConfirm_title" class="ui-dialog-title">Delete Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="dataverseForm:deleteDvConfirm_content">
+                        <p class="text-warning">
+                            <span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete your dataverse? You cannot undelete this dataverse.
+                        </p>
+                        <div class="button-block"><button id="dataverseForm:j_idt435" name="dataverseForm:j_idt435" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default" onclick="PrimeFaces.bcn(this,event,[function(event){PF('deleteConfirmation').hide()},function(event){PrimeFaces.ab({s:&quot;dataverseForm:j_idt435&quot;,f:&quot;dataverseForm&quot;});return false;}]);" type="submit"><span class="ui-button-text ui-c">Continue</span></button><script id="dataverseForm:j_idt435_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_dataverseForm_j_idt435",{id:"dataverseForm:j_idt435"});});</script>
+                            <button class="btn btn-link" onclick="PF('deleteConfirmation').hide();" type="button">                              
+                                Cancel
+                            </button>
+                        </div></div></div><script id="dataverseForm:deleteDvConfirm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","deleteConfirmation",{id:"dataverseForm:deleteDvConfirm",modal:true});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:2" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form><div id="searchResults"><div id="j_idt438"></div><div class="row panelSearchForm">
+        <div class="col-sm-9">
+<form id="j_idt443" name="j_idt443" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" class="form-inline" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt443" value="j_idt443" />
+
+                <div class="form-group">
+                    <div class="input-group"><input id="j_idt443:searchBasic" name="j_idt443:searchBasic" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control search-input" size="35" title="Search" onkeypress="if (event.keyCode == 13) { submitsearch(); return false; }" aria-label="Search" /><script id="j_idt443:searchBasic_s" type="text/javascript">$(function(){PrimeFaces.cw("InputText","widget_j_idt443_searchBasic",{id:"j_idt443:searchBasic"});});</script><script id="j_idt443:j_idt445_s" type="text/javascript">$(function(){PrimeFaces.cw("Watermark","widget_j_idt443_j_idt445",{id:"j_idt443:j_idt445",value:"Search this dataverse...",target:"j_idt443:searchBasic"});});</script>
+
+                        <span class="input-group-btn"><a id="j_idt443:searchbutton" href="#" class="ui-commandlink ui-widget btn btn-default bootstrap-button-tooltip" onclick="PrimeFaces.ab({s:&quot;j_idt443:searchbutton&quot;,f:&quot;j_idt443&quot;});return false;" title="Find">
+                                <span class="glyphicon glyphicon-search no-text"></span></a>
+                        </span><script id="j_idt443:j_idt449" type="text/javascript">submitsearch = function() {return PrimeFaces.ab({s:"j_idt443:j_idt449",f:"j_idt443",pa:arguments[0]});}</script>
+                    </div><a id="j_idt443:advsearchlink" name="j_idt443:advsearchlink" href="https://dataverse.harvard.edu:443/dataverse/harvardopendata/search">Advanced Search</a>
+                </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:3" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form>
+        </div><div class="col-sm-3 text-right col-manage-action">
+            <div class="button-block">
+                    <button type="button" class="btn btn-default btn-access" onclick="PF('addData_popup').show()">
+                        <span class="glyphicon glyphicon-plus"></span> Add Data
+                    </button>
+            </div></div></div><div id="search-row-panel" class="row row-offcanvas row-offcanvas-left">
+        <div id="dv-sidebar" class="col-sm-4 col-md-3 sidebar-offcanvas">
+<form id="facetType" name="facetType" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="facetType" value="facetType" />
+
+                
+                <div class="clearfix"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=datasets&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeChBox facetLink facetSelected"><div id="facetType:j_idt482" class="ui-selectbooleancheckbox ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="facetType:j_idt482_input" name="facetType:j_idt482_input" type="checkbox" autocomplete="off" aria-label="Show Collections" checked="checked" aria-checked="true" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default ui-state-active"><span class="ui-chkbox-icon ui-icon ui-icon-check ui-c"></span></div></div><script id="facetType:j_idt482_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectBooleanCheckbox","widget_facetType_j_idt482",{id:"facetType:j_idt482"});});</script></a><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeLink chkbox-label-margin facetSelected">
+
+                        <span class="icon-dataverse text-icon-inline"></span><span class="facetTypeDataverse">Dataverses (1)</span></a>
+                </div>
+                
+                <div class="clearfix"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeChBox facetLink facetSelected"><div id="facetType:j_idt499" class="ui-selectbooleancheckbox ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="facetType:j_idt499_input" name="facetType:j_idt499_input" type="checkbox" autocomplete="off" aria-label="Show Data Projects" checked="checked" aria-checked="true" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default ui-state-active"><span class="ui-chkbox-icon ui-icon ui-icon-check ui-c"></span></div></div><script id="facetType:j_idt499_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectBooleanCheckbox","widget_facetType_j_idt499",{id:"facetType:j_idt499"});});</script></a><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=datasets&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeLink chkbox-label-margin facetSelected">
+
+                        <span class="icon-dataset text-icon-inline"></span><span class="facetTypeDataset">Datasets (23)</span></a>
+                </div>
+                
+                <div class="clearfix"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets%3Afiles&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeChBox facetLink "><div id="facetType:j_idt516" class="ui-selectbooleancheckbox ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="facetType:j_idt516_input" name="facetType:j_idt516_input" type="checkbox" autocomplete="off" aria-label="Show Files" aria-checked="false" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-icon ui-icon-blank ui-c"></span></div></div><script id="facetType:j_idt516_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectBooleanCheckbox","widget_facetType_j_idt516",{id:"facetType:j_idt516"});});</script></a><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=files&amp;sort=dateSort&amp;order=desc&amp;page=1" class="facetTypeLink chkbox-label-margin ">
+
+                        <span class="icon-file text-icon-inline"></span><span class="facetTypeFile">Files (21)</span></a>
+                </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:4" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form>
+<form id="facetCategoryForm" name="facetCategoryForm" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="facetCategoryForm" value="facetCategoryForm" />
+<div id="facetCategoryForm:facetCategoryList" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList_list" class="ui-datalist-data"><li class="ui-datalist-item"><span class="facetCategoryName">Dataverse Category</span><div id="facetCategoryForm:facetCategoryList:0:j_idt528" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList:0:j_idt528_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList:0:j_idt528_list" class="ui-datalist-data"><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=dvCategory%3A%22Organization+or+Institution%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Organization or Institution (1)</a></li></ul></div></div><script id="facetCategoryForm:facetCategoryList:0:j_idt528_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList_0_j_idt528",{id:"facetCategoryForm:facetCategoryList:0:j_idt528"});});</script></li><li class="ui-datalist-item"><span class="facetCategoryName">Publication Year</span><div id="facetCategoryForm:facetCategoryList:1:j_idt528" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList:1:j_idt528_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList:1:j_idt528_list" class="ui-datalist-data"><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=publicationDate%3A%222016%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">2016 (12)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=publicationDate%3A%222015%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">2015 (12)</a></li></ul></div></div><script id="facetCategoryForm:facetCategoryList:1:j_idt528_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList_1_j_idt528",{id:"facetCategoryForm:facetCategoryList:1:j_idt528"});});</script></li><li class="ui-datalist-item"><span class="facetCategoryName">Author Name</span><div id="facetCategoryForm:facetCategoryList:2:j_idt528" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList:2:j_idt528_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList:2:j_idt528_list" class="ui-datalist-data"><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=authorName_ss%3A%22Harvard+University%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Harvard University (4)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=authorName_ss%3A%22Waldo%2C+Jim%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Waldo, Jim (2)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=authorName_ss%3A%22Environmental+Health+%26+Safety%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Environmental Health &amp; Safety (1)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=authorName_ss%3A%22HUPD%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">HUPD (1)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=authorName_ss%3A%22Harvard+Art+Museums%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Harvard Art Museums (1)</a></li></ul></div></div><script id="facetCategoryForm:facetCategoryList:2:j_idt528_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList_2_j_idt528",{id:"facetCategoryForm:facetCategoryList:2:j_idt528"});});</script><table id="facetCategoryForm:facetCategoryList:2:j_idt552" class="ui-panelgrid ui-widget facetsMoreLess" role="grid"><tbody><tr class="ui-widget-content" role="row"><td role="gridcell" class="ui-panelgrid-cell"></td><td role="gridcell" class="ui-panelgrid-cell"><a id="facetCategoryForm:facetCategoryList:2:j_idt557" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;facetCategoryForm:facetCategoryList:2:j_idt557&quot;,f:&quot;facetCategoryForm&quot;,u:&quot;facetCategoryForm:facetCategoryList&quot;});return false;">More...</a></td></tr></tbody></table></li><li class="ui-datalist-item"><span class="facetCategoryName">Kind of Data</span><div id="facetCategoryForm:facetCategoryList:3:j_idt528" class="ui-datalist ui-widget"><div id="facetCategoryForm:facetCategoryList:3:j_idt528_content" class="ui-datalist-content ui-widget-content"><ul id="facetCategoryForm:facetCategoryList:3:j_idt528_list" class="ui-datalist-data"><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=kindOfData_ss%3A%22API%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">API (2)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=kindOfData_ss%3A%22Annual+report%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Annual report (1)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=kindOfData_ss%3A%22Bibliographic%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Bibliographic (1)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=kindOfData_ss%3A%22Center%2C+Initiative%2C+Institute%2C+Program%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Center, Initiative, Institute, Program (1)</a></li><li class="ui-datalist-item"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;fq2=kindOfData_ss%3A%22Data+descriptors%22&amp;fq0=subtreePaths%3A%22%2F2668662%22&amp;fq1=dvObjectType%3A%28dataverses+OR+datasets%29&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=" class="facetLink">Data descriptors (1)</a></li></ul></div></div><script id="facetCategoryForm:facetCategoryList:3:j_idt528_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList_3_j_idt528",{id:"facetCategoryForm:facetCategoryList:3:j_idt528"});});</script><table id="facetCategoryForm:facetCategoryList:3:j_idt552" class="ui-panelgrid ui-widget facetsMoreLess" role="grid"><tbody><tr class="ui-widget-content" role="row"><td role="gridcell" class="ui-panelgrid-cell"></td><td role="gridcell" class="ui-panelgrid-cell"><a id="facetCategoryForm:facetCategoryList:3:j_idt557" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;facetCategoryForm:facetCategoryList:3:j_idt557&quot;,f:&quot;facetCategoryForm&quot;,u:&quot;facetCategoryForm:facetCategoryList&quot;});return false;">More...</a></td></tr></tbody></table></li></ul></div></div><script id="facetCategoryForm:facetCategoryList_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_facetCategoryForm_facetCategoryList",{id:"facetCategoryForm:facetCategoryList"});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:5" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form>
+        </div>
+        <div id="dv-main" class="col-sm-8 col-md-9">
+            
+
+            
+            <p class="visible-xs-block">
+              <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><span class="glyphicon glyphicon-chevron-left"></span> Filter Results</button>
+            </p><div id="resultsCountPaginatorBlock" class="row">
+                
+                <div class="results-count col-xs-6">1 to 10 of 24 Results
+                </div>
+                
+                <div class="results-sort-pagination col-xs-6">
+                    
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-sort"></span> Sort <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right text-left">
+                            <li><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;page=1&amp;sort=nameSort&amp;order=asc"><span class="">Name (A-Z)</span></a>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;page=1&amp;sort=nameSort&amp;order=desc"><span class="">Name (Z-A)</span></a>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;page=1&amp;sort=dateSort&amp;order=desc"><span class="highlightBold">Newest</span></a>
+                            </li>
+                            <li><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;page=1&amp;sort=dateSort&amp;order=asc"><span class="">Oldest</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div></div><table id="resultsTable" class="">
+<tbody>
+<tr>
+<td><div class="dataverseResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataverse text-brand pull-right" title="Dataverse"></span><a href="https://dataverse.harvard.edu:443/dataverse/harvardplanning"><span style="padding:4px 0;">Harvard Planning Office Dataverse</span></a><span class="text-muted" style="margin-left: .5em;">(Harvard University)</span>
+                        </div>
+                        <div class="card-preview-icon-block text-center"><a href="https://dataverse.harvard.edu:443/dataverse/harvardplanning" aria-label="Harvard Planning Office Dataverse logo"><span class="icon-dataverse text-brand"></span></a>
+                        </div><span class="text-muted" style="margin-right:.5em;">Nov 17, 2016</span>
+
+                        <hr style="margin:.5em;border:0;" />Data available to the Harvard community</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/VX5Y9G"><span style="padding:4px 0;">my.Harvard Operational Data Store</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/VX5Y9G" aria-label="my.Harvard Operational Data Store"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Nov 17, 2016</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">My.Harvard Support, 2016, "my.Harvard Operational Data Store", <a href="https://doi.org/10.7910/DVN/VX5Y9G" target="_blank">https://doi.org/10.7910/DVN/VX5Y9G</a>, Harvard Dataverse, V1, UNF:6:BB+iLMdOdxoK2cml2ZVF9A== [fileUNF]
+                        </div>This entry provides access to the data elements available in the Operational Data Store (ODS) for my.Harvard Student Information System. These data are available through a request process. What are the goals of the Operational Data Store? Provide data in a more real-time environm...</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/ZCUJYG"><span style="padding:4px 0;">Identity and Access Management Attributes</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/ZCUJYG" aria-label="Identity and Access Management Attributes"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Oct 13, 2016</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Harvard University, 2016, "Identity and Access Management Attributes", <a href="https://doi.org/10.7910/DVN/ZCUJYG" target="_blank">https://doi.org/10.7910/DVN/ZCUJYG</a>, Harvard Dataverse, V1
+                        </div>Data attributes available from the Identity and Access Management database. These data are available by request to authorized users ( http://iam.harvard.edu/files/iam/files/cas-saml-spusagerequest-form.pdf. More details and help can be found at the IAM website. Person Attributes...</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/EIWF4P"><span style="padding:4px 0;">Harvard Worldwide Activities</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/EIWF4P" aria-label="Harvard Worldwide Activities"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Oct 2, 2016</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Harvard Worldwide, 2016, "Harvard Worldwide Activities", <a href="https://doi.org/10.7910/DVN/EIWF4P" target="_blank">https://doi.org/10.7910/DVN/EIWF4P</a>, Harvard Dataverse, V1
+                        </div>Harvard Worldwide offers a glimpse at Harvard University’s strong connections to students, faculty, and other colleges and universities around the world, and to its enormous number of worldwide academic activities. Designed and maintained by the Office of the Vice Provost for Int...</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/ILMCGS"><span style="padding:4px 0;">Resources for Harvard Identity and Access Management Data Customers</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/ILMCGS" aria-label="Resources for Harvard Identity and Access Management Data Customers"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Oct 2, 2016</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Harvard Identify and Access Management, 2016, "Resources for Harvard Identity and Access Management Data Customers", <a href="https://doi.org/10.7910/DVN/ILMCGS" target="_blank">https://doi.org/10.7910/DVN/ILMCGS</a>, Harvard Dataverse, V1
+                        </div>Developers and others working with Harvard data customers can find help guides, definitions, and other key information on working with data import and export here. Still looking for what you need? Please contact iam@harvard.edu. You will be required to log in before downloading t...</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="../datasetbffc.html?persistentId=doi:10.7910/DVN/SOZSJA"><span style="padding:4px 0;">Harvard Catalyst Profiles</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="../datasetbffc.html?persistentId=doi:10.7910/DVN/SOZSJA" aria-label="Harvard Catalyst Profiles"><span class="icon-dataset"></span>
+                            </a>
+                        </div><span class="text-muted">Oct 2, 2016</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Weber, Griffin, 2016, "Harvard Catalyst Profiles", <a href="https://doi.org/10.7910/DVN/SOZSJA" target="_blank">https://doi.org/10.7910/DVN/SOZSJA</a>, Harvard Dataverse, V1
+                        </div>Harvard Catalyst Profiles is a Semantic Web application, which means its content can be read and understood by other computer programs. This enables the data in profiles, such as addresses and publications, to be shared with other institutions and appear on other websites. If you...</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/CKYCHU"><span style="padding:4px 0;">GIS Data Layers</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/CKYCHU" aria-label="GIS Data Layers"><img src="data:image/png;base64,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" alt="GIS Data Layers" />
+                            </a>
+                        </div><span class="text-muted">Sep 27, 2016</span><span class="text-muted"> - </span><a href="https://dataverse.harvard.edu:443/dataverse/harvardplanning">Harvard Planning Office Dataverse</a>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Harvard Planning &amp; Project Management (HPPM), 2016, "GIS Data Layers", <a href="https://doi.org/10.7910/DVN/CKYCHU" target="_blank">https://doi.org/10.7910/DVN/CKYCHU</a>, Harvard Dataverse, V1
+                        </div>The GIS data maintained by HPPM includes information on buildings and grounds related to Harvard University. Our "standard" base layers are available to Harvard affiliates and their service providers (for example, architects) working on Harvard projects in AutoCAD DWG, ESRI SHP o...</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/ID6HFN"><span style="padding:4px 0;">HUPD Annual Security Report</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/ID6HFN" aria-label="HUPD Annual Security Report"><img src="data:image/png;base64,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" alt="HUPD Annual Security Report" />
+                            </a>
+                        </div><span class="text-muted">Sep 27, 2016</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">HUPD, 2015, "HUPD Annual Security Report", <a href="https://doi.org/10.7910/DVN/ID6HFN" target="_blank">https://doi.org/10.7910/DVN/ID6HFN</a>, Harvard Dataverse, V2
+                        </div>Holds information regarding HUPD crime and reporting statistics for the past three years, separated by type crime or offense.</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/AOD2ZV"><span style="padding:4px 0;">Harvard Common Data Set</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/AOD2ZV" aria-label="Harvard Common Data Set"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAwCAMAAAChW0MZAAABWVBMVEX////+/v79/f38/Pz19fXs7Ozp6enq6urn5+fk5OTx8fHo6Ojd3d3e3t7U1NTNzc3FxcXGxsbJycnKysrV1dXc3Nzj4+PY2Nja2trb29vt7e3l5eXu7u7y8vK0tLS6urrHx8f09PTw8PDZ2dnW1tbv7+/z8/Pr6+vS0tK2traxsbHIyMjPz8/i4uLQ0NDT09Ph4eH7+/u5ubmzs7OwsLC+vr7NzczQ0M/X19bX19fLy8u8vLzDw8O9vb3ExM3Cws3AwM3T09/m5ufm5ubg4OC/v7/ExMTPz9TR0dfPz9bk5OusrKyurq6ysrK1tbXBwcG7u7q3t7fDw8LCwsLR0dHv7/Da2uvc3PHd3fDh4fPf3/Pd3fLf3/Lg4PLa2vLc3PLt7fX29vbr6+/t7fLu7vLs7PLx8fP39/fOzs7f39/AwMD4+Pi7u7v6+vqpqam4uLilpaXMzMz5+fnLpnHuAAACQ0lEQVQ4y+WUWXPSYBSGmz1kIQRCgCTQkoVQISHQVg2LVUPrChXBtW4xrW20tdL/f2EszOg304QZxzuf62fO8n7JWVv7GyAIhmAEWmGhGE6QKWp1MQiGr6kF0QwbwTBpLsNncxmBuSJPgi4mFoqlPC4RpCjKskgoV0hlsBjJVdbXNwSpqhbzmm5UF9QkBLDM+uaNSqMp01azaXMtkl7gtAFLqXe2trd29KJw074l3NaWuKBldnv9Qb9p0c6d3bv37pMLvCFokdkOv7ff1x38wcNHjyl1CQYDVqr7ZPvpaHxgD5+NJs+L3rJYCpzesyvjzQkvqXh2MM1birHAAzsa9Gyjm5k2mRcvX71+8/bw3fsPhx8/+SZotdeUglPUhgT6OQiOguPg6DgIvtQIsOMJZNb1Uy6thaj/G/QEfCEIooYsY6llHwbXApMo8Om67rolV5DjLYv7ytW9aCvCMeKtMl3IE4RpmoTyLd7C3LMB38vNbNtV4y2c2+e7TpS2yCZ0NGQtWpFEfbR6Hm852e/ZkAlJOsUkdHRyF2yZir4Fk0z4eWiun3ZSlmd6w4S5qlq66IaMKOEFIt7yxejfqaEoWvaSUiVYSyYJOTITdgwbP6YsE7Ks5SRM7zQmcw+jVAoTE5Ig570d3sVpOpWUvdkYnTV4W9OEecKOXm6v2+Ly0TtqUrwltTL9Rkn1fYoux1vG6fiiI0SBqUkWpR9MpzMcRSkJjbcgpN1uI8ivK7jqoP5XwJdAHMj1p+Nc+fNuQdXLfzzFT0kzVxBHC9K+AAAAAElFTkSuQmCC" alt="Harvard Common Data Set" />
+                            </a>
+                        </div><span class="text-muted">Sep 27, 2016</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Office of Institutional Research, 2016, "Harvard Common Data Set", <a href="https://doi.org/10.7910/DVN/AOD2ZV" target="_blank">https://doi.org/10.7910/DVN/AOD2ZV</a>, Harvard Dataverse, V1
+                        </div>This represents Harvard's responses to the Common Data Initiative. The Common Data Set (CDS) initiative is a collaborative effort among data providers in the higher education community and publishers as represented by the College Board, Peterson's, and U.S. News &amp; World Report. T...</div></td>
+</tr>
+<tr>
+<td><div class="datasetResult clearfix">
+                        <div class="card-title-icon-block">
+                            <span class="icon-dataset text-info pull-right" title="Dataset"></span>
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/BY4FJH"><span style="padding:4px 0;">Harvard University Higher Education Opportunity Act Fire Safety Report 2015</span></a>
+                        </div>
+                        <div class="card-preview-icon-block text-center">
+                            <a href="https://dataverse.harvard.edu:443/dataset.xhtml?persistentId=doi:10.7910/DVN/BY4FJH" aria-label="Harvard University Higher Education Opportunity Act Fire Safety Report 2015"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAwCAMAAAChW0MZAAABPlBMVEX//////v789PT89fX88/P88vL9/f3+/f37+/v8/Pz6+vr39/fBwcHV1dXS0tLOzc3Av7/Ly8vV1NTNzMytra3R0dHOzs719fXExMTPz8/JyMnFxcXJycnS0dHW1tbCwcKxsbHMzMzQ0ND29vbq6urY2NjU1dXb3d3U1tbW19ba2trx8fHv7u/byszYwMPXwsTq5uf09PT+/v749PS+mZ2rdXytgIbo2dv69ve6hI2ueoGscHnt4OH//v/Wsri7kJbKoKb8+vr69/fix8v27/D5+fnl5eXj4+Pn5+fh4eHm5ubb29vp6eni4uLe3t7k5OTf39/s7Ozo6Oj4+Pi2trbCwsLGxsbKysq7u7u9vb3U1NTNzc3t7e3y8vLg4ODu7u7z8/Pv7++4uLiurq6zs7PIyMimpqasrKz//f388fEvcG+WAAABJklEQVQ4y2NgYGAkBBiAgImJGT9gYgGaxETQLFZGBkZmsIl4wIhUxcbGzsbByQnEXLhVcfPw8vELCAoJi4iKieNWJSEpJS0jKyevoKikjMdGbhVVNXUNTS1tDnyu51TW0dXTNzDkxOtHIwZjE1MzcwIhYcRgYWllbYNflZERg62dvYMj4VB1cnYZdPFISJWrm7uWioenl5e3p4+vn7uXv39AYJBPMJoqbqWQUDHRsHAZHkFvvojIKEXR6Cg+OW50G42CjRhifGNVYuICDePiExINOTmAYYzNXbxJoWHJIimpImnpKaI4Xc/GwcGRkMCdwJmYwMWJUxXY5sQYbU5cfoQDV8WwMGWCqoAxHmw0eGJoVNXgVUWwhskAqmJgYSUEMsEmEq75AMSyJ72dtR9KAAAAAElFTkSuQmCC" alt="Harvard University Higher Education Opportunity Act Fire Safety Report 2015" />
+                            </a>
+                        </div><span class="text-muted">Sep 27, 2016</span>
+
+                        <div class="resultDatasetCitationBlock alert alert-info bg-citation">Environmental Health &amp; Safety, 2016, "Harvard University Higher Education Opportunity Act Fire Safety Report 2015", <a href="https://doi.org/10.7910/DVN/BY4FJH" target="_blank">https://doi.org/10.7910/DVN/BY4FJH</a>, Harvard Dataverse, V1
+                        </div>The Higher Education Opportunities Act (HEOA) of 2008, requires colleges and universities maintaining on-campus housing to compile fire data and issue a fire safety report annually. This report includes statistics on the number of fires, the cause of each fire, the number of inju...</div></td>
+</tr>
+</tbody>
+</table>
+
+            <div class="results-sort-pagination results-bottom text-center">
+            
+                <ul class="pagination">
+                    
+                    <li class="disabled"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=1" title="First Page">«</a>
+                    </li>
+                    <li class="disabled"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=1" title="Previous Page">&lt; Previous</a>
+                    </li>
+                        <li class="active"><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=1">1
+                                <span class="sr-only">(Current)
+                                </span></a>
+                        </li>
+                        <li><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=2">2
+                                <span>
+                                </span></a>
+                        </li>
+                        <li><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=3">3
+                                <span>
+                                </span></a>
+                        </li>
+                    <li><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;types=dataverses%3Adatasets&amp;sort=dateSort&amp;order=desc&amp;page=2" title="Next Page">Next &gt;</a>
+                    </li>
+                    <li><a href="https://dataverse.harvard.edu:443/dataverse/harvardopendata?q=&amp;sort=dateSort&amp;order=desc&amp;page=3&amp;types=dataverses%3Adatasets" title="Last Page">»</a>
+                    </li>
+                </ul>
+            </div>
+        </div></div>
+<form id="j_idt866" name="j_idt866" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt866" value="j_idt866" />
+<script id="j_idt866:j_idt867" type="text/javascript">postLoad = function() {return PrimeFaces.ab({s:"j_idt866:j_idt867",f:"j_idt866",p:"j_idt866:j_idt867",u:"resultsTable",pa:arguments[0]});}</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:6" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form><div id="addDataGuest" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="addDataGuest_title" class="ui-dialog-title">Add Data</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="addDataGuest_content">
+        <p class="help-block">Sign up or log in to create a dataverse or add a dataset.
+        </p>
+        <div class="button-block">
+                <a class="btn btn-default" href="https://dataverse.harvard.edu:443/dataverseuser.xhtml?editMode=CREATE&amp;redirectPage=%2Fdataverse.xhtml%3Falias%3Dharvardopendata" title="Sign Up for a Dataverse Account">Sign Up</a>
+            <a class="btn btn-default" href="https://dataverse.harvard.edu:443/loginpage.xhtml?redirectPage=%2Fdataverse.xhtml%3Falias%3Dharvardopendata" title="Log into your Dataverse Account">Log In</a>
+        </div></div></div><script id="addDataGuest_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","addData_popup",{id:"addDataGuest",modal:true});});</script></div><div id="shareDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="shareDialog_title" class="ui-dialog-title">Share Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="shareDialog_content">
+<form id="j_idt874" name="j_idt874" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt874" value="j_idt874" />
+ 
+                        <p class="help-block">Share this dataverse on your favorite social media networks.</p>
+                        <div id="sharrre-widget" data-url="https://dataverse.harvard.edu/dataverse/harvardopendata" data-text="View this dataverse."></div>
+                        <div class="button-block">
+                            <button class="btn btn-default" onclick="PF('shareDialog').hide()" type="button">
+                                Close
+                            </button>
+                        </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:7" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form></div></div><script id="shareDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","shareDialog",{id:"shareDialog",modal:true});});</script><div id="linkDataverseForm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="linkDataverseForm_title" class="ui-dialog-title">Link Dataverse</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="linkDataverseForm_content">
+<form id="j_idt876" name="j_idt876" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt876" value="j_idt876" />
+<input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:8" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form></div></div><script id="linkDataverseForm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","linkDataverseForm",{id:"linkDataverseForm",modal:true});});</script><div id="resetModifications" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="resetModifications_title" class="ui-dialog-title">Reset Modifications</span></div><div class="ui-dialog-content ui-widget-content" id="resetModifications_content">
+<form id="j_idt912" name="j_idt912" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt912" value="j_idt912" />
+
+                    <p class="text-warning">
+                        <span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to reset the selected metadata fields? If you do this, any customizations (hidden, required, optional) you have done will no longer appear.
+                    </p>
+                    <div class="button-block"><button id="j_idt912:j_idt914" name="j_idt912:j_idt914" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default" onclick="PrimeFaces.bcn(this,event,[function(event){check();PF('resetModifications').hide()},function(event){PrimeFaces.ab({s:&quot;j_idt912:j_idt914&quot;,f:&quot;j_idt912&quot;});return false;}]);" type="submit"><span class="ui-button-text ui-c">Continue</span></button><script id="j_idt912:j_idt914_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt912_j_idt914",{id:"j_idt912:j_idt914"});});</script>
+                        <button class="btn btn-link" onclick="uncheck();PF('resetModifications').hide()" type="button">                              
+                            Cancel
+                        </button>
+                    </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:9" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form></div></div><script id="resetModifications_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","resetModifications",{id:"resetModifications",modal:true});});</script>
+                <script>
+                    //<![CDATA[
+                    var scrollPos=0;
+                    $(document).ready(function () {
+                        initCarousel();
+                        popoverHTML('Allowed HTML Tags','&lt;a&gt;, &lt;b&gt;, &lt;blockquote&gt;, &lt;br&gt;, &lt;code&gt;, &lt;del&gt;, &lt;dd&gt;, &lt;dl&gt;, &lt;dt&gt;, &lt;em&gt;, &lt;hr&gt;, &lt;h1&gt;-&lt;h3&gt;, &lt;i&gt;, &lt;img&gt;, &lt;kbd&gt;, &lt;li&gt;, &lt;ol&gt;, &lt;p&gt;, &lt;pre&gt;, &lt;s&gt;, &lt;sup&gt;, &lt;sub&gt;, &lt;strong&gt;, &lt;strike&gt;, &lt;u&gt;, &lt;ul&gt;');
+                    });
+                    function initCarousel() {
+                        var owl1 = $("#featuredDataversesList");
+                        owl1.owlCarousel({
+                            pagination: false,
+                            navigation: false,
+                            items: 4, //10 items above 1000px browser width
+                            itemsDesktop: [1140, 4], //5 items between 1000px and 901px
+                            itemsDesktopSmall: [940, 3], // betweem 900px and 601px
+                            itemsTablet: [720, 2], //2 items between 600 and 0
+                            itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+                        });
+                        if (owl1.find('div.owl-item').length > 4) {
+                            // Custom Navigation Events
+                            $(".next1").click(function () {
+                                owl1.trigger('owl.next');
+                            });
+                            $(".prev1").click(function () {
+                                owl1.trigger('owl.prev');
+                            });
+                        } else {
+                            $("#featuredDataversesBlock .customNavigation a.btn").hide();
+                        }
+                        $('#featuredDataversesList .item').matchHeight();
+                    }
+                    function callOnError(){
+                        window.scrollTo(0, 0);
+                    }
+                    function updateInclude() {
+                        $('button[id$="hiddenRefresh"]').trigger('click');
+                    }
+                    function scrollAfterUpdate() {
+                        document.getElementById('metadataFieldOptionsPanel-Body').scrollTop = scrollPos;
+                    }
+                    
+                    function updateMetadata(checkbox) {
+                        var checked = checkbox.checked;
+                        if (checked === false){
+                            $('button[id$="updateMetadataButton"]').trigger('click');
+                        } else {
+                            PF('resetModifications').show();
+                        }
+                    }
+                    function check() {
+                        $('button[id$="resetToInherit"]').trigger('click');
+                    }
+                    function uncheck() {
+                        $('input:checkbox[id$="metadataRoot"]').prop('checked', false);
+                    }
+                    function updateOwnerDataverse() {
+                        $('button[id$="updateOwnerDataverse"]').trigger('click');
+                    }
+                    //]]>                                     
+                </script>
+        </div>
+    <footer>
+        <div id="dvfooter">
+            <div class="container">
+                <div class="row"><div class="col-sm-8 small">
+                        <p>Copyright &#169; 2022, The President &#38; Fellows of Harvard College |  <a href="../../support.dataverse.harvard.edu/harvard-dataverse-privacy-policy.html" rel="noopener" target="_blank">Privacy Policy</a>
+                        </p></div>
+                    <div class="col-sm-4 text-right">
+                        <div class="poweredbylogo">
+                            <span>Powered by</span>
+                            <a href="../../dataverse.org/index.html" title="The Dataverse Project" target="_blank" rel="noopener"><img src="../resources/images/dataverse_project_logo.svg" width="118" height="40" onerror="this.src='../resources/images/dataverseproject_logo.png'" alt="The Dataverse Project logo" /></a><span class="version">v. 5.11.1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><script>
+  //<![CDATA[
+  $(document).ready(function () {
+    $("#footer > div.container > div.row > div.col-sm-8.small > p").append("&#160;|&#160; <a href=\"https://www.harvard.edu/copyright-issue\" target=\"_blank\" rel=\"noopener\">Report Copyright Infringement</a> &#160;|&#160; <a href=\"https://accessibility.huit.harvard.edu/digital-accessibility-policy\" target=\"_blank\" rel=\"noopener\">Accessibility</a>");
+  });
+  //]]>
+</script>
+
+<style>
+#feedbackTab {position:fixed; bottom:0; right:50px;}
+#feedbackTab a.btn-feedback {border-bottom-right-radius:0; border-bottom-left-radius:0;}
+.btn-feedback {background-color:#C55B28; border-color:#C55B28; color:#fff;}
+.btn-feedback:hover, .btn-feedback:focus,
+.btn-feedback:active, .btn-feedback.active {background-color:#b05124; border-color: #9b471f; color:#fff;}
+</style>
+
+<div id="feedbackTab">
+    <a class="btn btn-feedback bootstrap-button-tooltip" href="https://goo.gl/forms/p7uu3GfiWYSlJrsi1" role="button" target="_blank" rel="noopener"  aria-label="Help improve Dataverse!" data-original-title="Help improve Dataverse!">
+        Feedback
+    </a>
+</div>
+
+    </footer><div id="ajaxStatusPanel"><div id="ajaxStatusPanel_start" style="display:none"><img src="https://dataverse.harvard.edu:443/resources/images/ajax-loading.gif" alt="Loading..." /></div></div><script id="ajaxStatusPanel_s" type="text/javascript">$(function(){PrimeFaces.cw("AjaxStatus","widget_ajaxStatusPanel",{id:"ajaxStatusPanel",delay:0});});</script><div id="contactDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="contactDialog_title" class="ui-dialog-title">Contact Harvard Dataverse Support</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="contactDialog_content"><div id="j_idt944">
+<form id="emailForm" name="emailForm" method="post" action="https://dataverse.harvard.edu:443/dataverse/harvardopendata" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="emailForm" value="emailForm" />
+<span id="emailForm:j_idt945"></span><script type="text/javascript">$(function(){PrimeFaces.focus(null, 'contactDialog');});</script>
+                
+                <div class="form-group">
+                    <label for="messageTo" class="col-sm-3 control-label">To</label>
+                    <div class="col-sm-9">
+                        <p id="messageTo" class="form-control-static">Harvard Dataverse Support</p>
+                    </div>
+                </div>
+                
+                    <div class="form-group"><label for="emailForm:userEmail" class="col-sm-3 control-label">From <span class="glyphicon glyphicon-asterisk text-danger" title="Required field"></span></label>
+                        <div class="col-sm-9"><input id="emailForm:userEmail" name="emailForm:userEmail" type="text" value="" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control" size="30" /><script id="emailForm:userEmail_s" type="text/javascript">$(function(){PrimeFaces.cw("InputText","widget_emailForm_userEmail",{id:"emailForm:userEmail"});});</script>
+                        </div>
+                    </div>
+                
+                <div class="form-group"><label for="emailForm:messageSubject" class="col-sm-3 control-label">Subject <span class="glyphicon glyphicon-asterisk text-danger" title="Required field"></span></label>
+                    <div class="col-sm-9"><input id="emailForm:messageSubject" name="emailForm:messageSubject" type="text" value="" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control" /><script id="emailForm:messageSubject_s" type="text/javascript">$(function(){PrimeFaces.cw("InputText","widget_emailForm_messageSubject",{id:"emailForm:messageSubject"});});</script>
+                    </div>
+                </div>   
+                
+                <div class="form-group"><label for="emailForm:userMessage" class="col-sm-3 control-label">Message <span class="glyphicon glyphicon-asterisk text-danger" title="Required field"></span></label>
+                    <div class="col-sm-9"><textarea id="emailForm:userMessage" name="emailForm:userMessage" class="ui-inputfield ui-inputtextarea ui-widget ui-state-default ui-corner-all form-control" cols="20" rows="10" title="Message" maxlength="2147483647"></textarea><script id="emailForm:userMessage_s" type="text/javascript">$(function(){PrimeFaces.cw("InputTextarea","widget_emailForm_userMessage",{id:"emailForm:userMessage",autoResize:false});});</script>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <p><span class="highlightBold">Please fill this out to prove you are not a robot.</span> <span class="glyphicon glyphicon-asterisk text-danger" title="Required field"></span>
+                        </p>
+                        <label for="emailForm:messageSum"> +  = 
+                        </label><input id="emailForm:messageSum" name="emailForm:messageSum" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all " size="4" title="Human Access Validation Answer" /><script id="emailForm:messageSum_s" type="text/javascript">$(function(){PrimeFaces.cw("InputText","widget_emailForm_messageSum",{id:"emailForm:messageSum"});});</script>
+                    </div>
+                </div>
+                
+                <div class="button-block"><button id="emailForm:j_idt973" name="emailForm:j_idt973" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default" onclick="PrimeFaces.ab({s:&quot;emailForm:j_idt973&quot;,f:&quot;emailForm&quot;,u:&quot;emailForm&quot;,onco:function(xhr,status,args,data){if (args &amp;&amp; !args.validationFailed) PF('contactForm').hide();;},pa:[{name:&quot;DO_VALIDATION&quot;,value:&quot;true&quot;}],fp:&quot;j_idt944&quot;});return false;" type="submit"><span class="ui-button-text ui-c">Send Message</span></button><script id="emailForm:j_idt973_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_emailForm_j_idt973",{id:"emailForm:j_idt973"});});</script>
+                    <button class="btn btn-link" onclick="PF('contactForm').hide()" type="button">
+                        Cancel
+                    </button>
+                </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:10" value="218109656967881506:225526312556835680" autocomplete="off" />
+</form></div></div></div><script id="contactDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","contactForm",{id:"contactDialog",modal:true});});</script>
+        <script src="https://dataverse.harvard.edu:443/javax.faces.resource/js/dv_rebind_bootstrap_ui.js.xhtml?version=5.11.1"></script>
+        <script src="https://dataverse.harvard.edu:443/javax.faces.resource/bs/js/bootstrap.min.js.xhtml?version=5.11.1"></script>
+        <script defer="defer" src="https://dataverse.harvard.edu:443/javax.faces.resource/js/ie-compat.js.xhtml?version=5.11.1"></script>
+        <script defer="defer" src="https://dataverse.harvard.edu:443/javax.faces.resource/js/owl.carousel.js.xhtml?version=5.11.1"></script>
+        <script defer="defer" src="https://dataverse.harvard.edu:443/javax.faces.resource/js/jquery.matchHeight.js.xhtml?version=5.11.1"></script>
+        <script src="https://dataverse.harvard.edu:443/javax.faces.resource/js/jquery.sharrre.js.xhtml?version=5.11.1"></script>
+        <script src="https://dataverse.harvard.edu:443/javax.faces.resource/js/clipboard.min.js.xhtml?version=5.11.1"></script> 
+        
+        <script>
+            //<![CDATA[
+            $(document).ready(function () {
+                // Navbar Search Toggle
+                $(document).on('click', '#navbar-search-toggle', function (e) {
+                    $(this).parent("li").hide();
+                    $("form.navbar-form[role='search']").show();
+                });
+                $('body').click(function (e) {
+                    if (!$(e.target).closest("form.navbar-form[role='search']").length) {
+                        $("form.navbar-form[role='search']").hide();
+                        $("#navbar-search-toggle").parent("li").show();
+                    }
+                    ;
+                });
+            });
+            function clickSupportLink() {
+                $("[id$='headerSupportLink']").click();
+            }
+            //]]>
+        </script><script type="text/javascript" id="j_idt977">bind_bsui_components();</script></body>
+
+<!-- Mirrored from dataverse.harvard.edu:443/dataverse/harvardopendata;jsessionid=e949dbaac3f2d601284dd956e917 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Sep 2022 05:47:18 GMT -->
+</html>
