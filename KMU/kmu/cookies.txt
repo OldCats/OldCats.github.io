@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+er.kmu.edu.tw	TRUE	/	FALSE	1999999999	csrftoken	jTtQt99QF0TGZ4yVAC5UOLIHUCT9KoZqxkj4esChWqZBDkLUfrydDavxOaKKXN6i
+er.kmu.edu.tw	TRUE	/	FALSE	1999999999	sessionid	2dy4buhle1td1nn3s0z2ykw77ow15h88
+er.kmu.edu.tw	TRUE	/	FALSE	1999999999	SameSite	Lax
+
